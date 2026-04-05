@@ -1,0 +1,1785 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — VSSV Solutions Inc.</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .service-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 64px 0;
+      border-bottom: 1px solid #e8edf2;
+    }
+    .service-detail:last-child { border-bottom: none; }
+    .service-detail.reverse .service-detail-text { order: 2; }
+    .service-detail.reverse .service-detail-visual { order: 1; }
+    .service-detail-text h3 {
+      font-size: 1.6rem;
+      color: #1a3a5c;
+      margin-bottom: 16px;
+    }
+    .service-detail-text p {
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .service-detail-text ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+    .service-detail-text ul li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .service-detail-text ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 10px; height: 10px;
+      background: #00a99d;
+      border-radius: 50%;
+    }
+    .service-detail-visual {
+      background: linear-gradient(135deg, #f0f7f6 0%, #e4f0ef 100%);
+      border-radius: 12px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .page-hero {
+      margin-top: 95px;
+      position: relative;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+      min-height: 220px;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 70% 50%, rgba(0,169,157,.06) 0%, transparent 60%),
+                  linear-gradient(160deg, #080f1e 0%, #060e1a 40%, #0a1525 100%);
+    }
+    .page-hero h1 { font-size: 2.4rem; margin-bottom: 12px; }
+    .page-hero p { color: rgba(255,255,255,.8); max-width: 560px; margin: 0 auto; font-size: 1.1rem; }
+    .breadcrumb { font-size: .9rem; margin-bottom: 20px; color: rgba(255,255,255,.6); }
+    .breadcrumb a { color: rgba(255,255,255,.6); }
+    .breadcrumb a:hover { color: #00a99d; }
+
+    @media (max-width: 768px) {
+      .service-detail { grid-template-columns: 1fr; }
+      .service-detail.reverse .service-detail-text,
+      .service-detail.reverse .service-detail-visual { order: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="navbar-logo">
+      <img src="images/logo.png" alt="VSSV Solutions Inc.">
+    </a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="hero" style="padding:0; position:relative; min-height:600px; overflow:hidden; background:radial-gradient(ellipse at 60% 50%, rgba(0,169,157,.07) 0%, transparent 55%), linear-gradient(160deg, #080f1e 0%, #060e1a 40%, #0a1525 100%);">
+
+  <style>
+    /* Process Plant Animations */
+    @keyframes slideUp { 0% { transform:translateY(120px); opacity:0; } 100% { transform:translateY(0); opacity:1; } }
+    @keyframes slideLeft { 0% { transform:translateX(200px); opacity:0; } 100% { transform:translateX(0); opacity:1; } }
+    @keyframes slideDown { 0% { transform:translateY(-140px); opacity:0; } 100% { transform:translateY(0); opacity:1; } }
+    @keyframes fadeIn { 0% { opacity:0; } 100% { opacity:1; } }
+    @keyframes flowRight { 0% { stroke-dashoffset:20; } 100% { stroke-dashoffset:0; } }
+
+    .b-ground    { opacity:0; animation: slideUp   1.2s cubic-bezier(.23,1,.32,1) 0.2s forwards; }
+    .b-columns   { opacity:0; animation: slideUp   1.3s cubic-bezier(.23,1,.32,1) 0.5s forwards; }
+    .b-vessels   { opacity:0; animation: slideLeft  1.4s cubic-bezier(.23,1,.32,1) 0.9s forwards; }
+    .b-tower     { opacity:0; animation: slideUp   1.5s cubic-bezier(.23,1,.32,1) 1.3s forwards; }
+    .b-pipes     { opacity:0; animation: fadeIn    1.2s ease 1.8s forwards; }
+    .b-details   { opacity:0; animation: fadeIn    1.0s ease 2.3s forwards; }
+    .b-steam     { opacity:0; animation: fadeIn    1.0s ease 2.8s forwards; }
+    .b-flow-line { stroke-dasharray:10 10; animation: flowRight 1s linear infinite; }
+
+    .hero .skid-bg {
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 65%;
+      height: auto;
+      opacity: 0.92;
+    }
+    .hero .text-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(6,14,26,.97) 0%,
+        rgba(6,14,26,.92) 22%,
+        rgba(6,14,26,.6) 42%,
+        rgba(6,14,26,.15) 60%,
+        transparent 75%);
+      z-index: 5;
+    }
+    @media (max-width: 900px) {
+      .hero .skid-bg { width: 95%; right: -15%; opacity: 0.45; }
+      .hero .text-fade {
+        background: linear-gradient(90deg,
+          rgba(6,14,26,.97) 0%, rgba(6,14,26,.85) 40%,
+          rgba(6,14,26,.5) 70%, rgba(6,14,26,.3) 100%);
+      }
+    }
+  </style>
+
+  <!-- Animated Skid Assembly -->
+  <svg class="skid-bg" viewBox="0 0 950 720" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dotP" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="15" cy="15" r="0.4" fill="rgba(0,200,180,.1)"/>
+      </pattern>
+      <filter id="gl" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="1.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="950" height="720" fill="url(#dotP)"/>
+
+    <!-- Ground / Base platform -->
+    <g class="b-ground" filter="url(#gl)">
+      <path d="M100 580 L200 620 L850 620 L750 580 Z" fill="none" stroke="rgba(0,220,200,.35)" stroke-width="1.2"/>
+      <path d="M100 580 L200 620 L200 630 L100 590 Z" fill="none" stroke="rgba(0,220,200,.15)" stroke-width="0.6"/>
+      <line x1="300" y1="580" x2="400" y2="620" stroke="rgba(0,220,200,.1)" stroke-width="0.5"/>
+      <line x1="500" y1="580" x2="600" y2="620" stroke="rgba(0,220,200,.1)" stroke-width="0.5"/>
+    </g>
+
+    <!-- Support columns -->
+    <g class="b-columns" filter="url(#gl)">
+      <line x1="200" y1="580" x2="200" y2="400" stroke="rgba(0,220,200,.3)" stroke-width="1"/>
+      <line x1="400" y1="580" x2="400" y2="350" stroke="rgba(0,220,200,.3)" stroke-width="1"/>
+      <line x1="600" y1="580" x2="600" y2="380" stroke="rgba(0,220,200,.3)" stroke-width="1"/>
+      <line x1="750" y1="580" x2="750" y2="420" stroke="rgba(0,220,200,.3)" stroke-width="1"/>
+      <!-- Cross braces -->
+      <line x1="200" y1="500" x2="400" y2="500" stroke="rgba(0,220,200,.12)" stroke-width="0.6"/>
+      <line x1="400" y1="480" x2="600" y2="480" stroke="rgba(0,220,200,.12)" stroke-width="0.6"/>
+      <line x1="600" y1="500" x2="750" y2="500" stroke="rgba(0,220,200,.12)" stroke-width="0.6"/>
+    </g>
+
+    <!-- Vessels -->
+    <g class="b-vessels" filter="url(#gl)">
+      <!-- Heat Exchanger (horizontal cylinder) -->
+      <ellipse cx="250" cy="430" rx="18" ry="45" stroke="rgba(0,220,200,.55)" stroke-width="1.4" fill="none"/>
+      <ellipse cx="350" cy="430" rx="18" ry="45" stroke="rgba(0,220,200,.35)" stroke-width="1" fill="none"/>
+      <line x1="250" y1="385" x2="350" y2="385" stroke="rgba(0,220,200,.55)" stroke-width="1.3"/>
+      <line x1="250" y1="475" x2="350" y2="475" stroke="rgba(0,220,200,.55)" stroke-width="1.3"/>
+      <!-- Internal baffles -->
+      <line x1="280" y1="390" x2="280" y2="460" stroke="rgba(0,220,200,.15)" stroke-width="0.5"/>
+      <line x1="310" y1="395" x2="310" y2="465" stroke="rgba(0,220,200,.15)" stroke-width="0.5"/>
+      <!-- Nozzles -->
+      <line x1="232" y1="410" x2="215" y2="410" stroke="rgba(0,220,200,.5)" stroke-width="1.2"/>
+      <line x1="232" y1="450" x2="215" y2="450" stroke="rgba(0,220,200,.5)" stroke-width="1.2"/>
+      <rect x="210" y="406" width="8" height="8" rx="1" stroke="rgba(0,220,200,.4)" stroke-width="0.8" fill="none"/>
+      <rect x="210" y="446" width="8" height="8" rx="1" stroke="rgba(0,220,200,.4)" stroke-width="0.8" fill="none"/>
+      <!-- Heat Exchanger Saddle Supports -->
+      <path d="M265 475 L258 510 L242 510" stroke="rgba(0,220,200,.4)" stroke-width="1" fill="none"/>
+      <path d="M275 475 L282 510 L298 510" stroke="rgba(0,220,200,.4)" stroke-width="1" fill="none"/>
+      <line x1="240" y1="510" x2="300" y2="510" stroke="rgba(0,220,200,.35)" stroke-width="0.8"/>
+      <path d="M325 475 L318 510 L302 510" stroke="rgba(0,220,200,.4)" stroke-width="1" fill="none"/>
+      <path d="M335 475 L342 510 L358 510" stroke="rgba(0,220,200,.4)" stroke-width="1" fill="none"/>
+      <line x1="300" y1="510" x2="360" y2="510" stroke="rgba(0,220,200,.35)" stroke-width="0.8"/>
+
+      <!-- Reactor Vessel (vertical drum) -->
+      <rect x="560" y="400" width="80" height="140" rx="4" stroke="rgba(0,220,200,.55)" stroke-width="1.4" fill="none"/>
+      <path d="M560 410 Q600 390 640 410" stroke="rgba(0,220,200,.5)" stroke-width="1.2" fill="none"/>
+      <path d="M560 530 Q600 550 640 530" stroke="rgba(0,220,200,.5)" stroke-width="1.2" fill="none"/>
+      <!-- Internal level -->
+      <line x1="565" y1="480" x2="635" y2="480" stroke="rgba(0,220,200,.2)" stroke-width="0.6" stroke-dasharray="4 3"/>
+      <!-- Nozzles -->
+      <line x1="640" y1="430" x2="670" y2="430" stroke="rgba(0,220,200,.5)" stroke-width="1.2"/>
+      <rect x="668" y="425" width="10" height="10" rx="1" stroke="rgba(0,220,200,.4)" stroke-width="0.8" fill="none"/>
+      <line x1="560" y1="460" x2="530" y2="460" stroke="rgba(0,220,200,.5)" stroke-width="1.2"/>
+      <rect x="522" y="455" width="10" height="10" rx="1" stroke="rgba(0,220,200,.4)" stroke-width="0.8" fill="none"/>
+      <!-- Reactor Vessel Support Legs -->
+      <line x1="572" y1="540" x2="565" y2="575" stroke="rgba(0,220,200,.4)" stroke-width="1"/>
+      <line x1="628" y1="540" x2="635" y2="575" stroke="rgba(0,220,200,.4)" stroke-width="1"/>
+      <line x1="558" y1="575" x2="572" y2="575" stroke="rgba(0,220,200,.35)" stroke-width="0.8"/>
+      <line x1="628" y1="575" x2="642" y2="575" stroke="rgba(0,220,200,.35)" stroke-width="0.8"/>
+      <!-- Cross brace between legs -->
+      <line x1="568" y1="558" x2="632" y2="558" stroke="rgba(0,220,200,.15)" stroke-width="0.5"/>
+    </g>
+
+    <!-- Distillation Tower -->
+    <g class="b-tower" filter="url(#gl)">
+      <rect x="430" y="180" width="55" height="380" rx="27" stroke="rgba(0,220,200,.6)" stroke-width="1.5" fill="none"/>
+      <!-- Trays -->
+      <line x1="435" y1="230" x2="480" y2="230" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="270" x2="480" y2="270" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="310" x2="480" y2="310" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="350" x2="480" y2="350" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="390" x2="480" y2="390" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="430" x2="480" y2="430" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="470" x2="480" y2="470" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="435" y1="510" x2="480" y2="510" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <!-- Side nozzles -->
+      <line x1="485" y1="250" x2="510" y2="250" stroke="rgba(0,220,200,.45)" stroke-width="1"/>
+      <line x1="485" y1="350" x2="510" y2="350" stroke="rgba(0,220,200,.45)" stroke-width="1"/>
+      <line x1="485" y1="450" x2="510" y2="450" stroke="rgba(0,220,200,.45)" stroke-width="1"/>
+      <line x1="430" y1="300" x2="405" y2="300" stroke="rgba(0,220,200,.45)" stroke-width="1"/>
+      <line x1="430" y1="500" x2="405" y2="500" stroke="rgba(0,220,200,.45)" stroke-width="1"/>
+      <!-- Top condenser -->
+      <line x1="457" y1="180" x2="457" y2="150" stroke="rgba(0,220,200,.5)" stroke-width="1.2"/>
+      <rect x="440" y="130" width="35" height="22" rx="3" stroke="rgba(0,220,200,.45)" stroke-width="1" fill="none"/>
+      <!-- Condenser Support Brackets -->
+      <line x1="445" y1="152" x2="442" y2="162" stroke="rgba(0,220,200,.3)" stroke-width="0.7"/>
+      <line x1="470" y1="152" x2="473" y2="162" stroke="rgba(0,220,200,.3)" stroke-width="0.7"/>
+      <line x1="438" y1="162" x2="448" y2="162" stroke="rgba(0,220,200,.25)" stroke-width="0.6"/>
+      <line x1="468" y1="162" x2="478" y2="162" stroke="rgba(0,220,200,.25)" stroke-width="0.6"/>
+      <!-- Distillation Tower Skirt Support -->
+      <path d="M430 555 L420 580 L420 580" stroke="rgba(0,220,200,.45)" stroke-width="1.1" fill="none"/>
+      <path d="M485 555 L495 580 L495 580" stroke="rgba(0,220,200,.45)" stroke-width="1.1" fill="none"/>
+      <line x1="415" y1="580" x2="435" y2="580" stroke="rgba(0,220,200,.35)" stroke-width="0.9"/>
+      <line x1="480" y1="580" x2="500" y2="580" stroke="rgba(0,220,200,.35)" stroke-width="0.9"/>
+      <!-- Skirt ring -->
+      <path d="M430 555 L485 555" stroke="rgba(0,220,200,.3)" stroke-width="0.8"/>
+      <!-- Gussets -->
+      <line x1="435" y1="555" x2="425" y2="570" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+      <line x1="480" y1="555" x2="490" y2="570" stroke="rgba(0,220,200,.2)" stroke-width="0.5"/>
+    </g>
+
+    <!-- Interconnecting pipes -->
+    <g class="b-pipes" filter="url(#gl)">
+      <!-- Heat exchanger to tower -->
+      <path d="M350 410 L405 410 L405 300 L430 300" stroke="rgba(0,220,200,.4)" stroke-width="1.2" fill="none"/>
+      <!-- Tower to reactor -->
+      <path d="M510 450 L530 450 L530 460" stroke="rgba(0,220,200,.4)" stroke-width="1.2" fill="none"/>
+      <!-- Tower overhead to condenser -->
+      <path d="M475 140 L520 140 L520 250 L510 250" stroke="rgba(0,220,200,.35)" stroke-width="1" fill="none"/>
+      <!-- Reactor outlet -->
+      <path d="M678 430 L720 430 L720 500 L750 500" stroke="rgba(0,220,200,.35)" stroke-width="1" fill="none"/>
+      <!-- Feed line -->
+      <path d="M150 410 L210 410" stroke="rgba(0,220,200,.35)" stroke-width="1" fill="none" class="b-flow-line"/>
+      <!-- Bottom product line -->
+      <path d="M405 500 L350 500 L350 550 L250 550" stroke="rgba(0,220,200,.35)" stroke-width="1" fill="none"/>
+
+      <!-- Animated flow indicators -->
+      <path d="M350 410 L405 410" stroke="rgba(0,255,220,.5)" stroke-width="1.5" fill="none" class="b-flow-line"/>
+      <path d="M510 450 L530 450" stroke="rgba(0,255,220,.5)" stroke-width="1.5" fill="none" class="b-flow-line"/>
+    </g>
+
+    <!-- Details: valves, gauges, labels -->
+    <g class="b-details" filter="url(#gl)">
+      <!-- Valves (diamond shapes) -->
+      <!-- Gate Valve 1 (on pipe to tower) -->
+      <polygon points="380,404 390,410 380,416" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <polygon points="400,404 390,410 400,416" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <line x1="390" y1="404" x2="390" y2="394" stroke="rgba(0,220,200,.45)" stroke-width="0.9"/>
+      <circle cx="390" cy="391" r="4" stroke="rgba(0,220,200,.4)" stroke-width="0.7" fill="none"/>
+      <line x1="387" y1="391" x2="393" y2="391" stroke="rgba(0,220,200,.35)" stroke-width="0.6"/>
+      <!-- Gate Valve 2 (on overhead line) -->
+      <polygon points="514,242 520,250 514,258" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <polygon points="526,242 520,250 526,258" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <line x1="520" y1="242" x2="520" y2="232" stroke="rgba(0,220,200,.45)" stroke-width="0.9"/>
+      <circle cx="520" cy="229" r="4" stroke="rgba(0,220,200,.4)" stroke-width="0.7" fill="none"/>
+      <line x1="517" y1="229" x2="523" y2="229" stroke="rgba(0,220,200,.35)" stroke-width="0.6"/>
+      <!-- Gate Valve 3 (on reactor outlet) -->
+      <polygon points="690,424 700,430 690,436" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <polygon points="710,424 700,430 710,436" stroke="rgba(0,220,200,.5)" stroke-width="0.9" fill="none"/>
+      <line x1="700" y1="424" x2="700" y2="414" stroke="rgba(0,220,200,.45)" stroke-width="0.9"/>
+      <circle cx="700" cy="411" r="4" stroke="rgba(0,220,200,.4)" stroke-width="0.7" fill="none"/>
+      <line x1="697" y1="411" x2="703" y2="411" stroke="rgba(0,220,200,.35)" stroke-width="0.6"/>
+      <!-- Pressure gauges -->
+      <circle cx="300" cy="385" r="8" stroke="rgba(0,220,200,.35)" stroke-width="0.7" fill="none"/>
+      <line x1="300" y1="385" x2="305" y2="380" stroke="rgba(0,220,200,.4)" stroke-width="0.6"/>
+      <circle cx="600" cy="395" r="8" stroke="rgba(0,220,200,.35)" stroke-width="0.7" fill="none"/>
+      <line x1="600" y1="395" x2="605" y2="390" stroke="rgba(0,220,200,.4)" stroke-width="0.6"/>
+      <!-- Labels -->
+      <text x="290" y="380" fill="rgba(0,220,200,.2)" font-size="8" font-family="monospace">PI-101</text>
+      <text x="435" y="175" fill="rgba(0,220,200,.25)" font-size="9" font-family="monospace">T-100</text>
+      <text x="565" y="395" fill="rgba(0,220,200,.2)" font-size="8" font-family="monospace">R-200</text>
+      <text x="240" y="382" fill="rgba(0,220,200,.2)" font-size="8" font-family="monospace">E-101</text>
+    </g>
+
+    <!-- Steam/vapor from condenser -->
+    <g class="b-steam">
+      <circle cx="450" cy="120" r="4" fill="none" stroke="rgba(0,220,200,.25)" stroke-width="0.6">
+        <animate attributeName="cy" values="120;95" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="3;7" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="460" cy="125" r="3" fill="none" stroke="rgba(0,220,200,.2)" stroke-width="0.5">
+        <animate attributeName="cy" values="125;100" dur="3.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.3;0" dur="3.5s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="2;6" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="470" cy="122" r="3.5" fill="none" stroke="rgba(0,220,200,.2)" stroke-width="0.5">
+        <animate attributeName="cy" values="122;97" dur="2.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.35;0" dur="2.8s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="2.5;5.5" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </svg>
+
+  <!-- Text readability gradient -->
+  <div class="text-fade"></div>
+
+  <!-- Hero Content -->
+  <div class="container" style="position:relative;z-index:10;display:flex;align-items:center;min-height:600px;">
+    <div class="hero-content">
+      <h1>Our <span>Services</span></h1>
+      <p>We deliver expert 2D/3D Design drafting, process design, and technical consulting services helping you move from concept to completion with confidence.</p>
+      <div class="hero-buttons">
+        <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+        <a href="about.html" class="btn btn-outline">About Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES DETAIL -->
+<section class="section">
+  <div class="container">
+
+    <!-- 1. 3D Modeling -->
+    <div class="service-detail">
+      <div class="service-detail-text">
+        <h3>3D Modeling &amp; Design</h3>
+        <p>We create detailed, production ready 3D models from individual components to complex multi-part assemblies. Our models are built for clarity, accuracy, and seamless integration into your product development, prototyping and production workflows.</p>
+        <ul>
+          <li>Part and assembly modeling</li>
+          <li>Sheet metal and weldment design</li>
+          <li>Photorealistic rendering and visualization</li>
+          <li>Design for manufacturability (DFM) review</li>
+          <li>BOM generation and revision management</li>
+        </ul>
+      </div>
+      <div class="service-detail-visual">
+        <img src="images/3d-modeling.png" alt="3D Modeling and Design" style="width:100%; border-radius:12px;">
+      </div>
+    </div>
+
+    <!-- 2. AutoCAD -->
+    <div class="service-detail reverse">
+      <div class="service-detail-text">
+        <h3>AutoCAD Drawings &amp; Drafting</h3>
+        <p>Our drafting team produces accurate 2D drawings in AutoCAD. Whether you need architectural layouts, mechanical details, or general arrangement drawings, we deliver clean, well organized documentation.</p>
+        <ul>
+          <li>Mechanical and structural detail drawings</li>
+          <li>General arrangement (GA) drawings</li>
+          <li>Fabrication and shop drawings</li>
+          <li>As-built documentation and redline markups</li>
+          <li>Drawing conversion (paper-to-CAD)</li>
+        </ul>
+      </div>
+      <div class="service-detail-visual">
+        <svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Grid pattern -->
+              <pattern id="acGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="10" x2="10" y2="10" stroke="#1a3a5c" stroke-width="0.12" opacity="0.1"/>
+                <line x1="10" y1="0" x2="10" y2="10" stroke="#1a3a5c" stroke-width="0.12" opacity="0.1"/>
+              </pattern>
+              <!-- Cross-hatch pattern for sections -->
+              <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="4" stroke="#00a99d" stroke-width="0.35" opacity="0.35"/>
+              </pattern>
+              <!-- Concrete hatch (dots + triangles) -->
+              <pattern id="concreteH" width="6" height="6" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="0.4" fill="#1a3a5c" opacity="0.15"/>
+                <circle cx="4" cy="4" r="0.4" fill="#1a3a5c" opacity="0.15"/>
+                <polygon points="3,1 3.6,2.2 2.4,2.2" fill="#1a3a5c" opacity="0.1"/>
+              </pattern>
+            </defs>
+
+            <!-- Background grid -->
+            <rect width="440" height="320" fill="url(#acGrid)"/>
+
+            <!-- ===== OUTER DRAWING BORDER ===== -->
+            <rect x="2" y="2" width="436" height="316" stroke="#1a3a5c" stroke-width="1.2" fill="none"/>
+            <rect x="6" y="6" width="428" height="308" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+
+            <!-- ================================================================ -->
+            <!-- PLAN VIEW (top-left quadrant) — 10,10 to 250,180                -->
+            <!-- ================================================================ -->
+
+            <!-- Section label -->
+            <text x="130" y="20" font-size="5" fill="#1a3a5c" text-anchor="middle" font-weight="600" font-family="monospace" letter-spacing="1">PLAN VIEW</text>
+
+            <!-- Building outline (thick walls) -->
+            <rect x="20" y="26" width="220" height="145" stroke="#1a3a5c" stroke-width="1.8" fill="none"/>
+            <!-- Double wall effect -->
+            <rect x="23" y="29" width="214" height="139" stroke="#1a3a5c" stroke-width="0.3" fill="none" opacity="0.3"/>
+
+            <!-- Interior walls -->
+            <line x1="20" y1="95" x2="155" y2="95" stroke="#1a3a5c" stroke-width="1.2"/>
+            <!-- Wall thickness -->
+            <line x1="20" y1="98" x2="155" y2="98" stroke="#1a3a5c" stroke-width="0.3" opacity="0.4"/>
+
+            <!-- Vertical wall divider -->
+            <line x1="165" y1="26" x2="165" y2="171" stroke="#1a3a5c" stroke-width="1.2"/>
+            <line x1="168" y1="26" x2="168" y2="171" stroke="#1a3a5c" stroke-width="0.3" opacity="0.4"/>
+
+            <!-- Door openings with swing arcs -->
+            <!-- Door in horizontal wall -->
+            <line x1="115" y1="94" x2="135" y2="94" stroke="#fff" stroke-width="4"/>
+            <line x1="115" y1="97" x2="135" y2="97" stroke="#fff" stroke-width="4"/>
+            <path d="M115 95 Q115 113 132 113" stroke="#00a99d" stroke-width="0.4" fill="none" stroke-dasharray="2 1.5"/>
+            <!-- Door in vertical wall -->
+            <line x1="164" y1="120" x2="164" y2="140" stroke="#fff" stroke-width="4"/>
+            <line x1="167" y1="120" x2="167" y2="140" stroke="#fff" stroke-width="4"/>
+            <path d="M165 120 Q148 120 148 135" stroke="#00a99d" stroke-width="0.4" fill="none" stroke-dasharray="2 1.5"/>
+            <!-- Loading dock (bottom right) -->
+            <line x1="200" y1="170" x2="230" y2="170" stroke="#fff" stroke-width="4"/>
+            <line x1="200" y1="171" x2="230" y2="171" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="3 2"/>
+
+            <!-- ===== TANKS (plan view circles with crosshairs & nozzles) ===== -->
+            <!-- Tank TK-101 (large) -->
+            <circle cx="52" cy="58" r="22" stroke="#00a99d" stroke-width="1.1" fill="rgba(0,169,157,.03)"/>
+            <line x1="52" y1="33" x2="52" y2="83" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="5 2 1 2" opacity="0.3"/>
+            <line x1="27" y1="58" x2="77" y2="58" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="5 2 1 2" opacity="0.3"/>
+            <!-- Nozzles -->
+            <rect x="50" y="33" width="4" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+            <rect x="72" y="56" width="4" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+            <rect x="50" y="78" width="4" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+            <!-- Tank TK-102 (medium) -->
+            <circle cx="112" cy="58" r="17" stroke="#00a99d" stroke-width="1" fill="rgba(0,169,157,.03)"/>
+            <line x1="112" y1="38" x2="112" y2="78" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="5 2 1 2" opacity="0.3"/>
+            <line x1="92" y1="58" x2="132" y2="58" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="5 2 1 2" opacity="0.3"/>
+            <rect x="110" y="38" width="4" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+            <!-- ===== PIPING RUNS ===== -->
+            <!-- TK-101 to TK-102 -->
+            <line x1="76" y1="58" x2="92" y2="58" stroke="#00a99d" stroke-width="0.8"/>
+            <!-- TK-101 down to pump -->
+            <path d="M52 82 L52 110" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+            <!-- TK-102 down to HX -->
+            <path d="M112 78 L112 110" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+            <!-- Pump outlet to HX -->
+            <path d="M62 125 L80 125 L80 118" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+            <!-- HX outlet to right zone -->
+            <path d="M130 118 L145 118 L145 140 L165 140" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+
+            <!-- ===== PUMP (circle + triangle) ===== -->
+            <circle cx="52" cy="118" r="8" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+            <polygon points="48,114 58,118 48,122" stroke="#00a99d" stroke-width="0.6" fill="rgba(0,169,157,.06)"/>
+
+            <!-- ===== HEAT EXCHANGER (rectangle with baffles) ===== -->
+            <rect x="88" y="108" width="38" height="20" rx="1" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+            <line x1="88" y1="114" x2="126" y2="114" stroke="#00a99d" stroke-width="0.3" opacity="0.3"/>
+            <line x1="88" y1="121" x2="126" y2="121" stroke="#00a99d" stroke-width="0.3" opacity="0.3"/>
+            <!-- Tube side nozzles -->
+            <rect x="92" y="105" width="3" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.4" fill="none"/>
+            <rect x="117" y="127" width="3" height="4" rx="0.3" stroke="#00a99d" stroke-width="0.4" fill="none"/>
+
+            <!-- ===== CONVEYOR (right zone, two parallel lines + rollers) ===== -->
+            <line x1="175" y1="50" x2="175" y2="155" stroke="#1a3a5c" stroke-width="1"/>
+            <line x1="185" y1="50" x2="185" y2="155" stroke="#1a3a5c" stroke-width="1"/>
+            <!-- End caps -->
+            <line x1="173" y1="50" x2="187" y2="50" stroke="#1a3a5c" stroke-width="0.8"/>
+            <line x1="173" y1="155" x2="187" y2="155" stroke="#1a3a5c" stroke-width="0.8"/>
+            <!-- Rollers -->
+            <line x1="175" y1="60" x2="185" y2="60" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="70" x2="185" y2="70" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="80" x2="185" y2="80" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="90" x2="185" y2="90" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="100" x2="185" y2="100" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="110" x2="185" y2="110" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="120" x2="185" y2="120" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="130" x2="185" y2="130" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="175" y1="140" x2="185" y2="140" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <!-- Flow arrow -->
+            <polygon points="178,153 180,157 182,153" fill="#1a3a5c" opacity="0.3"/>
+
+            <!-- ===== STAGING / PALLETS (right zone lower) ===== -->
+            <rect x="195" y="100" width="12" height="12" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.02)"/>
+            <line x1="195" y1="100" x2="207" y2="112" stroke="#1a3a5c" stroke-width="0.2" opacity="0.15"/>
+            <line x1="207" y1="100" x2="195" y2="112" stroke="#1a3a5c" stroke-width="0.2" opacity="0.15"/>
+            <rect x="210" y="100" width="12" height="12" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.02)"/>
+            <line x1="210" y1="100" x2="222" y2="112" stroke="#1a3a5c" stroke-width="0.2" opacity="0.15"/>
+            <line x1="222" y1="100" x2="210" y2="112" stroke="#1a3a5c" stroke-width="0.2" opacity="0.15"/>
+            <rect x="195" y="115" width="12" height="12" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.02)"/>
+            <rect x="210" y="115" width="12" height="12" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.02)"/>
+
+            <!-- Control room furniture -->
+            <rect x="195" y="35" width="30" height="8" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.02)"/>
+            <circle cx="210" cy="50" r="3" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.3"/>
+            <rect x="205" y="35" width="7" height="4" rx="0.3" stroke="#1a3a5c" stroke-width="0.3" fill="none" opacity="0.4"/>
+
+            <!-- ===== DIMENSIONS (plan view) ===== -->
+            <!-- Overall horizontal -->
+            <line x1="20" y1="178" x2="240" y2="178" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="20" y1="176" x2="20" y2="180" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="240" y1="176" x2="240" y2="180" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <polygon points="22,178 20,176.5 20,179.5" fill="#1a3a5c" opacity="0.3"/>
+            <polygon points="238,178 240,176.5 240,179.5" fill="#1a3a5c" opacity="0.3"/>
+            <!-- Overall vertical -->
+            <line x1="247" y1="26" x2="247" y2="171" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="245" y1="26" x2="249" y2="26" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="245" y1="171" x2="249" y2="171" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <polygon points="247,28 245.5,26 248.5,26" fill="#1a3a5c" opacity="0.3"/>
+            <polygon points="247,169 245.5,171 248.5,171" fill="#1a3a5c" opacity="0.3"/>
+
+            <!-- Section cut line A-A (dashed through plan) -->
+            <line x1="10" y1="95" x2="12" y2="95" stroke="#00a99d" stroke-width="1" opacity="0.6"/>
+            <line x1="15" y1="95" x2="250" y2="95" stroke="#00a99d" stroke-width="0.5" stroke-dasharray="8 3 2 3" opacity="0.35"/>
+            <!-- Section arrows -->
+            <polygon points="12,91 12,99 8,95" fill="#00a99d" opacity="0.5"/>
+
+            <!-- North arrow -->
+            <polygon points="235,30 238,40 232,40" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+            <polygon points="235,30 235,40 232,40" fill="rgba(26,58,92,.2)"/>
+
+            <!-- ================================================================ -->
+            <!-- FRONT ELEVATION (bottom-left) — 10,190 to 250,290              -->
+            <!-- ================================================================ -->
+
+            <text x="130" y="196" font-size="5" fill="#1a3a5c" text-anchor="middle" font-weight="600" font-family="monospace" letter-spacing="1">FRONT ELEVATION</text>
+
+            <!-- Ground line -->
+            <line x1="20" y1="288" x2="240" y2="288" stroke="#1a3a5c" stroke-width="1" opacity="0.5"/>
+
+            <!-- Foundation with cross-hatch -->
+            <rect x="20" y="282" width="220" height="6" stroke="#1a3a5c" stroke-width="0.6" fill="url(#concreteH)"/>
+
+            <!-- Building front wall -->
+            <rect x="20" y="215" width="220" height="67" stroke="#1a3a5c" stroke-width="1.5" fill="none"/>
+
+            <!-- Roof line (flat with slight parapet) -->
+            <line x1="18" y1="215" x2="242" y2="215" stroke="#1a3a5c" stroke-width="1"/>
+            <line x1="18" y1="212" x2="242" y2="212" stroke="#1a3a5c" stroke-width="0.5"/>
+
+            <!-- Tanks visible behind wall (dashed - hidden lines) -->
+            <circle cx="52" cy="250" r="20" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="3 2" fill="none" opacity="0.3"/>
+            <circle cx="112" cy="255" r="15" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="3 2" fill="none" opacity="0.3"/>
+
+            <!-- Tank tops extending above roof -->
+            <rect x="38" y="205" width="28" height="12" rx="1" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+            <!-- Tank manway on top -->
+            <ellipse cx="52" cy="205" rx="6" ry="2" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+            <rect x="100" y="208" width="24" height="9" rx="1" stroke="#00a99d" stroke-width="0.7" fill="none"/>
+
+            <!-- Windows -->
+            <rect x="175" y="230" width="14" height="20" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(0,169,157,.03)"/>
+            <line x1="175" y1="240" x2="189" y2="240" stroke="#1a3a5c" stroke-width="0.3" opacity="0.3"/>
+            <line x1="182" y1="230" x2="182" y2="250" stroke="#1a3a5c" stroke-width="0.3" opacity="0.3"/>
+
+            <rect x="200" y="230" width="14" height="20" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(0,169,157,.03)"/>
+            <line x1="200" y1="240" x2="214" y2="240" stroke="#1a3a5c" stroke-width="0.3" opacity="0.3"/>
+            <line x1="207" y1="230" x2="207" y2="250" stroke="#1a3a5c" stroke-width="0.3" opacity="0.3"/>
+
+            <!-- Large door / loading dock -->
+            <rect x="140" y="248" width="25" height="34" rx="0.5" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+            <!-- Horizontal door segments -->
+            <line x1="140" y1="255" x2="165" y2="255" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="140" y1="262" x2="165" y2="262" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="140" y1="269" x2="165" y2="269" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="140" y1="276" x2="165" y2="276" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+
+            <!-- Pipe penetrations through wall -->
+            <circle cx="80" cy="260" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+            <circle cx="80" cy="260" r="1" fill="#00a99d" opacity="0.15"/>
+            <circle cx="95" cy="260" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+            <circle cx="95" cy="260" r="1" fill="#00a99d" opacity="0.15"/>
+
+            <!-- Elevation dimensions -->
+            <line x1="248" y1="215" x2="248" y2="282" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="246" y1="215" x2="250" y2="215" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="246" y1="282" x2="250" y2="282" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <polygon points="248,217 246.5,215 249.5,215" fill="#1a3a5c" opacity="0.3"/>
+            <polygon points="248,280 246.5,282 249.5,282" fill="#1a3a5c" opacity="0.3"/>
+
+            <!-- ================================================================ -->
+            <!-- SECTION A-A (top-right) — 260,10 to 430,180                     -->
+            <!-- ================================================================ -->
+
+            <text x="345" y="20" font-size="5" fill="#1a3a5c" text-anchor="middle" font-weight="600" font-family="monospace" letter-spacing="1">SECTION A-A</text>
+
+            <!-- Ground line -->
+            <line x1="270" y1="170" x2="425" y2="170" stroke="#1a3a5c" stroke-width="0.8" opacity="0.5"/>
+
+            <!-- Foundation -->
+            <rect x="280" y="165" width="130" height="5" stroke="#1a3a5c" stroke-width="0.5" fill="url(#concreteH)"/>
+
+            <!-- Cut walls (filled with cross-hatch) -->
+            <!-- Left wall -->
+            <rect x="280" y="55" width="8" height="110" stroke="#1a3a5c" stroke-width="1" fill="url(#hatch)"/>
+            <!-- Right wall -->
+            <rect x="402" y="55" width="8" height="110" stroke="#1a3a5c" stroke-width="1" fill="url(#hatch)"/>
+            <!-- Interior wall cut -->
+            <rect x="340" y="55" width="6" height="110" stroke="#1a3a5c" stroke-width="0.8" fill="url(#hatch)"/>
+
+            <!-- Roof slab -->
+            <rect x="278" y="50" width="134" height="6" stroke="#1a3a5c" stroke-width="0.8" fill="url(#hatch)"/>
+
+            <!-- Floor slab -->
+            <rect x="278" y="162" width="134" height="4" stroke="#1a3a5c" stroke-width="0.5" fill="url(#concreteH)"/>
+
+            <!-- Tank inside left room (sectioned) -->
+            <rect x="295" y="85" width="36" height="75" rx="2" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+            <!-- Liquid level -->
+            <rect x="296" y="105" width="34" height="54" rx="1" fill="rgba(0,169,157,.06)"/>
+            <line x1="296" y1="105" x2="330" y2="105" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="3 2"/>
+            <!-- Tank legs -->
+            <line x1="300" y1="160" x2="300" y2="165" stroke="#00a99d" stroke-width="1"/>
+            <line x1="326" y1="160" x2="326" y2="165" stroke="#00a99d" stroke-width="1"/>
+            <!-- Tank nozzle top -->
+            <rect x="308" y="78" width="8" height="8" rx="0.5" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+            <!-- Piping in section -->
+            <line x1="316" y1="82" x2="316" y2="55" stroke="#00a99d" stroke-width="0.7" fill="none"/>
+            <line x1="316" y1="55" x2="340" y2="55" stroke="#00a99d" stroke-width="0.7" fill="none" opacity="0"/>
+            <!-- Horizontal pipe through wall -->
+            <line x1="331" y1="120" x2="353" y2="120" stroke="#00a99d" stroke-width="0.7"/>
+            <!-- Pipe continues to right room -->
+            <path d="M353 120 L370 120 L370 100" stroke="#00a99d" stroke-width="0.7" fill="none"/>
+
+            <!-- Equipment in right room -->
+            <rect x="360" y="100" width="35" height="55" rx="1" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+            <!-- Internal elements (conveyor profile) -->
+            <line x1="362" y1="130" x2="393" y2="130" stroke="#1a3a5c" stroke-width="0.5"/>
+            <circle cx="367" cy="130" r="3" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+            <circle cx="388" cy="130" r="3" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+
+            <!-- Overhead crane beam -->
+            <rect x="290" y="57" width="100" height="4" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="none" opacity="0.4"/>
+            <!-- Crane hook -->
+            <line x1="340" y1="61" x2="340" y2="72" stroke="#1a3a5c" stroke-width="0.3" opacity="0.3"/>
+            <path d="M337 72 Q340 78 343 72" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.3"/>
+
+            <!-- Section dimensions -->
+            <line x1="270" y1="55" x2="270" y2="165" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="268" y1="55" x2="272" y2="55" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="268" y1="165" x2="272" y2="165" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <polygon points="270,57 268.5,55 271.5,55" fill="#1a3a5c" opacity="0.3"/>
+            <polygon points="270,163 268.5,165 271.5,165" fill="#1a3a5c" opacity="0.3"/>
+
+            <!-- ================================================================ -->
+            <!-- SIDE ELEVATION (bottom-right) — 260,190 to 430,290              -->
+            <!-- ================================================================ -->
+
+            <text x="345" y="196" font-size="5" fill="#1a3a5c" text-anchor="middle" font-weight="600" font-family="monospace" letter-spacing="1">SIDE ELEVATION</text>
+
+            <!-- Ground line -->
+            <line x1="270" y1="288" x2="425" y2="288" stroke="#1a3a5c" stroke-width="0.8" opacity="0.5"/>
+
+            <!-- Foundation -->
+            <rect x="285" y="282" width="120" height="6" stroke="#1a3a5c" stroke-width="0.5" fill="url(#concreteH)"/>
+
+            <!-- Building side wall -->
+            <rect x="285" y="215" width="120" height="67" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+
+            <!-- Roof -->
+            <line x1="283" y1="215" x2="407" y2="215" stroke="#1a3a5c" stroke-width="0.8"/>
+            <line x1="283" y1="212" x2="407" y2="212" stroke="#1a3a5c" stroke-width="0.4"/>
+
+            <!-- Interior wall (hidden line) -->
+            <line x1="345" y1="215" x2="345" y2="282" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.3"/>
+
+            <!-- Tank visible in side (dashed hidden) -->
+            <rect x="300" y="230" width="30" height="48" rx="2" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="3 2" fill="none" opacity="0.3"/>
+            <!-- Tank top above roof -->
+            <rect x="303" y="207" width="24" height="10" rx="1" stroke="#00a99d" stroke-width="0.7" fill="none"/>
+
+            <!-- Pipe rack (side view) -->
+            <line x1="355" y1="245" x2="400" y2="245" stroke="#00a99d" stroke-width="0.6"/>
+            <line x1="355" y1="250" x2="400" y2="250" stroke="#00a99d" stroke-width="0.6"/>
+            <!-- Pipe rack supports -->
+            <line x1="360" y1="250" x2="360" y2="282" stroke="#1a3a5c" stroke-width="0.5"/>
+            <line x1="395" y1="250" x2="395" y2="282" stroke="#1a3a5c" stroke-width="0.5"/>
+            <!-- Cross bracing -->
+            <line x1="360" y1="255" x2="395" y2="275" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+            <line x1="395" y1="255" x2="360" y2="275" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+
+            <!-- Door on side -->
+            <rect x="370" y="260" width="15" height="22" rx="0.3" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+
+            <!-- Pipe penetration -->
+            <circle cx="340" cy="255" r="2.5" stroke="#00a99d" stroke-width="0.4" fill="none"/>
+            <circle cx="340" cy="255" r="0.8" fill="#00a99d" opacity="0.15"/>
+
+            <!-- Side elevation dimension -->
+            <line x1="415" y1="215" x2="415" y2="282" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="413" y1="215" x2="417" y2="215" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <line x1="413" y1="282" x2="417" y2="282" stroke="#1a3a5c" stroke-width="0.35" opacity="0.4"/>
+            <polygon points="415,217 413.5,215 416.5,215" fill="#1a3a5c" opacity="0.3"/>
+            <polygon points="415,280 413.5,282 416.5,282" fill="#1a3a5c" opacity="0.3"/>
+
+            <!-- ================================================================ -->
+            <!-- TITLE BLOCK (bottom strip)                                       -->
+            <!-- ================================================================ -->
+
+            <rect x="260" y="293" width="170" height="18" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.02)"/>
+            <!-- Dividers -->
+            <line x1="340" y1="293" x2="340" y2="311" stroke="#1a3a5c" stroke-width="0.4"/>
+            <line x1="395" y1="293" x2="395" y2="311" stroke="#1a3a5c" stroke-width="0.4"/>
+
+            <!-- Title block content (stylized, no readable text — just line placeholders) -->
+            <line x1="265" y1="299" x2="335" y2="299" stroke="#1a3a5c" stroke-width="0.5" opacity="0.2"/>
+            <line x1="265" y1="304" x2="320" y2="304" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+            <line x1="265" y1="308" x2="310" y2="308" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+
+            <line x1="345" y1="299" x2="390" y2="299" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+            <line x1="345" y1="304" x2="385" y2="304" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+
+            <line x1="400" y1="299" x2="425" y2="299" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+            <line x1="400" y1="304" x2="420" y2="304" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+
+            <!-- Revision table (small box above title block) -->
+            <rect x="260" y="278" width="170" height="15" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+            <line x1="290" y1="278" x2="290" y2="293" stroke="#1a3a5c" stroke-width="0.3"/>
+            <line x1="370" y1="278" x2="370" y2="293" stroke="#1a3a5c" stroke-width="0.3"/>
+            <line x1="260" y1="285" x2="430" y2="285" stroke="#1a3a5c" stroke-width="0.3"/>
+            <!-- Placeholder lines in revision cells -->
+            <line x1="265" y1="282" x2="285" y2="282" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+            <line x1="295" y1="282" x2="365" y2="282" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+            <line x1="375" y1="282" x2="425" y2="282" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+            <line x1="265" y1="289" x2="285" y2="289" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+            <line x1="295" y1="289" x2="350" y2="289" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+
+          </svg>
+      </div>
+    </div>
+
+    <!-- 3. Process Design -->
+    <div class="service-detail">
+      <div class="service-detail-text">
+        <h3>Process Design</h3>
+        <p>We develop robust process designs that form the backbone of your operations. Our deliverables include process flow diagrams, P&amp;IDs, heat and mass balances, and supporting calculations, all aligned with industry standards.</p>
+        <ul>
+          <li>Process flow diagrams (PFDs)</li>
+          <li>Piping and instrumentation diagrams (P&amp;IDs)</li>
+          <li>Heat and mass balance development</li>
+          <li>Process simulation and optimization</li>
+          <li>Hazard and operability (HAZOP) support</li>
+        </ul>
+      </div>
+      <div class="service-detail-visual">
+        <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- ============================================================== -->
+    <!-- ROW 1: MAIN PROCESS VESSELS (top row — 4 vessels with piping)   -->
+    <!-- ============================================================== -->
+
+    <!-- === VESSEL 1: Feed/Mixing Tank (with agitator) === -->
+    <rect x="30" y="40" width="50" height="65" rx="3" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <ellipse cx="55" cy="40" rx="25" ry="6" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <path d="M30 105 Q55 120 80 105" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <!-- Agitator -->
+    <line x1="55" y1="28" x2="55" y2="90" stroke="#00a99d" stroke-width="0.8"/>
+    <circle cx="55" cy="25" r="5" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <line x1="48" y1="80" x2="62" y2="80" stroke="#00a99d" stroke-width="0.9"/>
+    <line x1="48" y1="75" x2="62" y2="75" stroke="#00a99d" stroke-width="0.7"/>
+    <!-- Inlet nozzle -->
+    <line x1="18" y1="45" x2="30" y2="45" stroke="#1a3a5c" stroke-width="1"/>
+    <line x1="18" y1="43" x2="18" y2="47" stroke="#1a3a5c" stroke-width="1.2"/>
+    <!-- Jacket lines -->
+    <path d="M27 50 L27 100" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="3 2" opacity="0.4"/>
+    <path d="M83 50 L83 100" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="3 2" opacity="0.4"/>
+    <!-- Legs -->
+    <line x1="38" y1="112" x2="38" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="72" y1="112" x2="72" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="34" y1="125" x2="42" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="68" y1="125" x2="76" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+
+    <!-- === PIPING: V1 to V2 with pump === -->
+    <path d="M80 70 L95 70" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+    <circle cx="102" cy="70" r="6" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <polygon points="99,67 106,70 99,73" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.08)"/>
+    <path d="M108 70 L130 70 L130 55" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+
+    <!-- === VESSEL 2: Heated Vessel (with coil) === -->
+    <rect x="120" y="35" width="55" height="70" rx="3" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <ellipse cx="147.5" cy="35" rx="27.5" ry="7" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <path d="M120 105 L147.5 125 L175 105" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <!-- Internal coil -->
+    <path d="M130 55 Q140 50 150 55 Q160 60 170 55" stroke="#00a99d" stroke-width="0.6" fill="none" opacity="0.5"/>
+    <path d="M130 65 Q140 60 150 65 Q160 70 170 65" stroke="#00a99d" stroke-width="0.6" fill="none" opacity="0.5"/>
+    <path d="M130 75 Q140 70 150 75 Q160 80 170 75" stroke="#00a99d" stroke-width="0.6" fill="none" opacity="0.5"/>
+    <!-- Vent -->
+    <line x1="147.5" y1="28" x2="147.5" y2="20" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="143" y1="20" x2="152" y2="20" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="144" y1="17" x2="151" y2="17" stroke="#1a3a5c" stroke-width="0.5"/>
+    <!-- Legs -->
+    <line x1="133" y1="120" x2="133" y2="132" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="162" y1="120" x2="162" y2="132" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="129" y1="132" x2="137" y2="132" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="158" y1="132" x2="166" y2="132" stroke="#1a3a5c" stroke-width="0.9"/>
+
+    <!-- === PIPING: V2 to V3 with control valve === -->
+    <path d="M175 70 L195 70" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+    <polygon points="195,66 203,70 195,74" stroke="#00a99d" stroke-width="0.7" fill="rgba(0,169,157,.06)"/>
+    <polygon points="211,66 203,70 211,74" stroke="#00a99d" stroke-width="0.7" fill="rgba(0,169,157,.06)"/>
+    <line x1="203" y1="66" x2="203" y2="58" stroke="#00a99d" stroke-width="0.6"/>
+    <circle cx="203" cy="56" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <path d="M211 70 L230 70 L230 55" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+
+    <!-- === VESSEL 3: Separator (cylindrical) === -->
+    <rect x="218" y="35" width="50" height="65" rx="3" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <line x1="218" y1="35" x2="268" y2="35" stroke="#1a3a5c" stroke-width="1.3"/>
+    <ellipse cx="243" cy="35" rx="8" ry="3" stroke="#1a3a5c" stroke-width="0.7" fill="none"/>
+    <path d="M218 100 L243 118 L268 100" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <!-- Internal vortex -->
+    <path d="M233 60 Q243 80 253 60" stroke="#00a99d" stroke-width="0.35" fill="none" stroke-dasharray="3 2" opacity="0.3"/>
+    <path d="M236 70 Q243 85 250 70" stroke="#00a99d" stroke-width="0.35" fill="none" stroke-dasharray="3 2" opacity="0.3"/>
+    <!-- Sight glass -->
+    <rect x="268" y="60" width="4" height="15" rx="1" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <line x1="269" y1="67" x2="271" y2="67" stroke="#00a99d" stroke-width="0.4"/>
+    <!-- Legs -->
+    <line x1="230" y1="114" x2="230" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="256" y1="114" x2="256" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="226" y1="125" x2="234" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="252" y1="125" x2="260" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+
+    <!-- === PIPING: V3 to HX to V4 === -->
+    <path d="M268 80 L285 80" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+    <circle cx="292" cy="80" r="6" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <polygon points="289,77 296,80 289,83" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.08)"/>
+    <path d="M298 80 L315 80" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+
+    <!-- === HEAT EXCHANGER === -->
+    <rect x="315" y="70" width="40" height="20" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <line x1="319" y1="76" x2="351" y2="76" stroke="#00a99d" stroke-width="0.4" opacity="0.35"/>
+    <line x1="319" y1="80" x2="351" y2="80" stroke="#00a99d" stroke-width="0.4" opacity="0.35"/>
+    <line x1="319" y1="84" x2="351" y2="84" stroke="#00a99d" stroke-width="0.4" opacity="0.35"/>
+    <line x1="325" y1="70" x2="325" y2="64" stroke="#1a3a5c" stroke-width="0.8"/>
+    <line x1="322" y1="64" x2="328" y2="64" stroke="#1a3a5c" stroke-width="0.8"/>
+    <line x1="345" y1="90" x2="345" y2="96" stroke="#1a3a5c" stroke-width="0.8"/>
+    <line x1="342" y1="96" x2="348" y2="96" stroke="#1a3a5c" stroke-width="0.8"/>
+    <path d="M355 80 L375 80 L375 55" stroke="#00a99d" stroke-width="1.1" fill="none"/>
+
+    <!-- === VESSEL 4: Storage Tank === -->
+    <rect x="362" y="30" width="55" height="75" rx="3" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <ellipse cx="389.5" cy="30" rx="27.5" ry="7" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <path d="M362 105 Q389.5 115 417 105" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <!-- Level indicator -->
+    <rect x="417" y="45" width="3" height="50" rx="0.5" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <rect x="417.5" y="65" width="2" height="30" rx="0.3" fill="rgba(0,169,157,.12)"/>
+    <!-- Pressure gauge -->
+    <line x1="389.5" y1="23" x2="389.5" y2="15" stroke="#1a3a5c" stroke-width="0.6"/>
+    <circle cx="389.5" cy="12" r="4" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+    <line x1="389.5" y1="12" x2="391" y2="10" stroke="#1a3a5c" stroke-width="0.4"/>
+    <!-- Legs -->
+    <line x1="374" y1="110" x2="374" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="405" y1="110" x2="405" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="370" y1="125" x2="378" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="401" y1="125" x2="409" y2="125" stroke="#1a3a5c" stroke-width="0.9"/>
+
+    <!-- ============================================================== -->
+    <!-- UTILITY HEADER (top) -->
+    <!-- ============================================================== -->
+    <line x1="15" y1="12" x2="460" y2="12" stroke="#00a99d" stroke-width="0.6" stroke-dasharray="6 3" opacity="0.25"/>
+    <line x1="55" y1="12" x2="55" y2="20" stroke="#00a99d" stroke-width="0.5" opacity="0.25"/>
+    <line x1="147.5" y1="12" x2="147.5" y2="17" stroke="#00a99d" stroke-width="0.5" opacity="0.25"/>
+    <line x1="325" y1="12" x2="325" y2="64" stroke="#00a99d" stroke-width="0.5" opacity="0.25"/>
+
+    <!-- ============================================================== -->
+    <!-- ROW 2: 5 PARALLEL TANKS (fermenters/conditioning)               -->
+    <!-- ============================================================== -->
+
+    <!-- Tank A -->
+    <rect x="40" y="165" width="38" height="55" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <ellipse cx="59" cy="165" rx="19" ry="5" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M40 220 L59 235 L78 220" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M43 175 L43 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <path d="M75 175 L75 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <line x1="49" y1="232" x2="49" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="69" y1="232" x2="69" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+
+    <!-- Tank B -->
+    <rect x="100" y="165" width="38" height="55" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <ellipse cx="119" cy="165" rx="19" ry="5" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M100 220 L119 235 L138 220" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M103 175 L103 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <path d="M135 175 L135 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <line x1="109" y1="232" x2="109" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="129" y1="232" x2="129" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+
+    <!-- Tank C -->
+    <rect x="160" y="165" width="38" height="55" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <ellipse cx="179" cy="165" rx="19" ry="5" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M160 220 L179 235 L198 220" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M163 175 L163 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <path d="M195 175 L195 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <line x1="169" y1="232" x2="169" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="189" y1="232" x2="189" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+
+    <!-- Tank D -->
+    <rect x="220" y="165" width="38" height="55" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <ellipse cx="239" cy="165" rx="19" ry="5" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M220 220 L239 235 L258 220" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M223 175 L223 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <path d="M255 175 L255 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <line x1="229" y1="232" x2="229" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="249" y1="232" x2="249" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+
+    <!-- Tank E -->
+    <rect x="280" y="165" width="38" height="55" rx="2" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <ellipse cx="299" cy="165" rx="19" ry="5" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M280 220 L299 235 L318 220" stroke="#1a3a5c" stroke-width="1.1" fill="none"/>
+    <path d="M283 175 L283 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <path d="M315 175 L315 215" stroke="#00a99d" stroke-width="0.3" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <line x1="289" y1="232" x2="289" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+    <line x1="309" y1="232" x2="309" y2="242" stroke="#1a3a5c" stroke-width="0.7"/>
+
+    <!-- === INLET HEADER to all 5 tanks from V4 === -->
+    <path d="M389.5 115 L389.5 150 L59 150" stroke="#00a99d" stroke-width="1" fill="none"/>
+    <line x1="59" y1="150" x2="59" y2="160" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="119" y1="150" x2="119" y2="160" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="179" y1="150" x2="179" y2="160" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="239" y1="150" x2="239" y2="160" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="299" y1="150" x2="299" y2="160" stroke="#00a99d" stroke-width="0.8"/>
+    <!-- Small valves on drops -->
+    <rect x="56" y="154" width="6" height="3" rx="0.5" stroke="#00a99d" stroke-width="0.4" fill="rgba(0,169,157,.06)"/>
+    <rect x="116" y="154" width="6" height="3" rx="0.5" stroke="#00a99d" stroke-width="0.4" fill="rgba(0,169,157,.06)"/>
+    <rect x="176" y="154" width="6" height="3" rx="0.5" stroke="#00a99d" stroke-width="0.4" fill="rgba(0,169,157,.06)"/>
+    <rect x="236" y="154" width="6" height="3" rx="0.5" stroke="#00a99d" stroke-width="0.4" fill="rgba(0,169,157,.06)"/>
+    <rect x="296" y="154" width="6" height="3" rx="0.5" stroke="#00a99d" stroke-width="0.4" fill="rgba(0,169,157,.06)"/>
+
+    <!-- ============================================================== -->
+    <!-- ROW 3: DOWNSTREAM EQUIPMENT                                     -->
+    <!-- ============================================================== -->
+
+    <!-- Common outlet header -->
+    <path d="M59 238 L59 258 L420 258" stroke="#00a99d" stroke-width="1" fill="none"/>
+    <line x1="119" y1="238" x2="119" y2="258" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="179" y1="238" x2="179" y2="258" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="239" y1="238" x2="239" y2="258" stroke="#00a99d" stroke-width="0.8"/>
+    <line x1="299" y1="238" x2="299" y2="258" stroke="#00a99d" stroke-width="0.8"/>
+
+    <!-- === Filter Unit === -->
+    <rect x="55" y="275" width="30" height="40" rx="2" stroke="#1a3a5c" stroke-width="1" fill="none"/>
+    <line x1="62" y1="280" x2="62" y2="310" stroke="#00a99d" stroke-width="0.4" opacity="0.3"/>
+    <line x1="70" y1="280" x2="70" y2="310" stroke="#00a99d" stroke-width="0.4" opacity="0.3"/>
+    <line x1="78" y1="280" x2="78" y2="310" stroke="#00a99d" stroke-width="0.4" opacity="0.3"/>
+    <path d="M70 258 L70 275" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <path d="M85 295 L115 295" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+
+    <!-- Pump after filter -->
+    <circle cx="122" cy="295" r="6" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <polygon points="119,292 126,295 119,298" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.08)"/>
+    <path d="M128 295 L155 295" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+
+    <!-- Secondary Filter -->
+    <rect x="155" y="282" width="22" height="26" rx="2" stroke="#1a3a5c" stroke-width="1" fill="none"/>
+    <line x1="166" y1="282" x2="166" y2="308" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+    <path d="M177 295 L210 295" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+
+    <!-- Control valve -->
+    <polygon points="210,291 218,295 210,299" stroke="#00a99d" stroke-width="0.6" fill="rgba(0,169,157,.06)"/>
+    <polygon points="226,291 218,295 226,299" stroke="#00a99d" stroke-width="0.6" fill="rgba(0,169,157,.06)"/>
+    <line x1="218" y1="291" x2="218" y2="283" stroke="#00a99d" stroke-width="0.5"/>
+    <circle cx="218" cy="280" r="3" stroke="#00a99d" stroke-width="0.4" fill="none"/>
+    <path d="M226 295 L260 295" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+
+    <!-- === Final Collection Tank === -->
+    <rect x="260" y="268" width="55" height="60" rx="3" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <ellipse cx="287.5" cy="268" rx="27.5" ry="6" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <path d="M260 328 Q287.5 340 315 328" stroke="#1a3a5c" stroke-width="1.3" fill="none"/>
+    <!-- Level fill -->
+    <rect x="261" y="295" width="53" height="32" rx="2" fill="rgba(0,169,157,.04)"/>
+    <line x1="261" y1="295" x2="314" y2="295" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="3 2" opacity="0.4"/>
+    <!-- Pressure gauge -->
+    <line x1="287.5" y1="262" x2="287.5" y2="254" stroke="#1a3a5c" stroke-width="0.5"/>
+    <circle cx="287.5" cy="251" r="3.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <line x1="287.5" y1="251" x2="289" y2="249" stroke="#1a3a5c" stroke-width="0.35"/>
+    <!-- Legs -->
+    <line x1="272" y1="335" x2="272" y2="348" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="303" y1="335" x2="303" y2="348" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="268" y1="348" x2="276" y2="348" stroke="#1a3a5c" stroke-width="0.9"/>
+    <line x1="299" y1="348" x2="307" y2="348" stroke="#1a3a5c" stroke-width="0.9"/>
+
+    <!-- Outlet from final tank -->
+    <path d="M315 300 L340 300" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <circle cx="347" cy="300" r="6" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <polygon points="344,297 351,300 344,303" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.08)"/>
+    <path d="M353 300 L380 300 L380 295 L420 295" stroke="#00a99d" stroke-width="0.9" fill="none"/>
+    <polygon points="418,292 424,295 418,298" fill="#00a99d" opacity="0.4"/>
+
+    <!-- ============================================================== -->
+    <!-- CIP System (bottom left)                                        -->
+    <!-- ============================================================== -->
+    <rect x="10" y="300" width="25" height="30" rx="2" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+    <ellipse cx="22.5" cy="300" rx="12.5" ry="3.5" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+    <circle cx="14" cy="335" r="2.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <circle cx="31" cy="335" r="2.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <path d="M35 310 L45 310 L45 295" stroke="#00a99d" stroke-width="0.6" stroke-dasharray="3 2" opacity="0.4"/>
+    <circle cx="22.5" cy="307" r="3" stroke="#00a99d" stroke-width="0.4" fill="none" stroke-dasharray="1.5 1"/>
+
+    <!-- ============================================================== -->
+    <!-- INSTRUMENTATION                                                 -->
+    <!-- ============================================================== -->
+    <circle cx="18" cy="75" r="3.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <line x1="18" y1="75" x2="27" y2="75" stroke="#1a3a5c" stroke-width="0.4" stroke-dasharray="1.5 1"/>
+
+    <circle cx="203" cy="105" r="3.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <line x1="203" y1="101" x2="203" y2="96" stroke="#1a3a5c" stroke-width="0.4"/>
+
+    <line x1="198" y1="180" x2="206" y2="180" stroke="#1a3a5c" stroke-width="0.4"/>
+    <circle cx="210" cy="180" r="3.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <line x1="315" y1="315" x2="325" y2="315" stroke="#1a3a5c" stroke-width="0.4"/>
+    <circle cx="329" cy="315" r="3.5" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- ============================================================== -->
+    <!-- RIGHT SIDE: Utility pipe rack                                   -->
+    <!-- ============================================================== -->
+    <line x1="450" y1="10" x2="450" y2="350" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="8 4" opacity="0.15"/>
+    <line x1="458" y1="10" x2="458" y2="350" stroke="#1a3a5c" stroke-width="0.5" stroke-dasharray="8 4" opacity="0.15"/>
+    <line x1="420" y1="80" x2="450" y2="80" stroke="#00a99d" stroke-width="0.5" opacity="0.2"/>
+    <line x1="420" y1="258" x2="450" y2="258" stroke="#00a99d" stroke-width="0.5" opacity="0.2"/>
+    <line x1="420" y1="295" x2="450" y2="295" stroke="#00a99d" stroke-width="0.5" opacity="0.2"/>
+
+    <!-- Junction dots -->
+    <circle cx="59" cy="150" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="119" cy="150" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="179" cy="150" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="239" cy="150" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="299" cy="150" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="59" cy="258" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="119" cy="258" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="179" cy="258" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="239" cy="258" r="1.2" fill="#00a99d" opacity="0.5"/>
+    <circle cx="299" cy="258" r="1.2" fill="#00a99d" opacity="0.5"/>
+
+  </svg>
+      </div>
+    </div>
+
+    <!-- 4. Piping Design -->
+    <div class="service-detail reverse">
+      <div class="service-detail-text">
+        <h3>Piping Design</h3>
+        <p>Our piping design services cover the full lifecycle, from routing studies and stress considerations through to detailed isometric drawings. We focus on constructability, operability, and maintainability in every layout.</p>
+        <ul>
+          <li>Piping layout and routing studies</li>
+          <li>Isometric drawings and spool generation</li>
+          <li>Pipe support design and placement</li>
+          <li>Material take-offs (MTOs)</li>
+          <li>Compliance with ASME, CSA, and industry codes</li>
+        </ul>
+      </div>
+      <div class="service-detail-visual">
+        <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- ============================================================ -->
+    <!-- ISOMETRIC GRID (subtle) -->
+    <!-- ============================================================ -->
+    <defs>
+      <pattern id="isoGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="20" x2="20" y2="20" stroke="#1a3a5c" stroke-width="0.1" opacity="0.08"/>
+        <line x1="20" y1="0" x2="20" y2="20" stroke="#1a3a5c" stroke-width="0.1" opacity="0.08"/>
+      </pattern>
+    </defs>
+    <rect width="480" height="340" fill="url(#isoGrid)"/>
+
+    <!-- ============================================================ -->
+    <!-- PIPE RACK STRUCTURE (steel supports)                          -->
+    <!-- ============================================================ -->
+
+    <!-- Vertical columns -->
+    <rect x="60" y="80" width="5" height="200" rx="0.5" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.04)"/>
+    <rect x="180" y="80" width="5" height="200" rx="0.5" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.04)"/>
+    <rect x="300" y="80" width="5" height="200" rx="0.5" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.04)"/>
+    <rect x="410" y="80" width="5" height="200" rx="0.5" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.04)"/>
+
+    <!-- Base plates -->
+    <rect x="53" y="278" width="19" height="4" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.03)"/>
+    <rect x="173" y="278" width="19" height="4" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.03)"/>
+    <rect x="293" y="278" width="19" height="4" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.03)"/>
+    <rect x="403" y="278" width="19" height="4" rx="0.5" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.03)"/>
+
+    <!-- Horizontal beams (upper tier) -->
+    <line x1="60" y1="100" x2="415" y2="100" stroke="#1a3a5c" stroke-width="1.2"/>
+    <line x1="60" y1="103" x2="415" y2="103" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- Horizontal beams (lower tier) -->
+    <line x1="60" y1="170" x2="415" y2="170" stroke="#1a3a5c" stroke-width="1.2"/>
+    <line x1="60" y1="173" x2="415" y2="173" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- Cross bracing between columns -->
+    <line x1="65" y1="105" x2="180" y2="168" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+    <line x1="180" y1="105" x2="65" y2="168" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+    <line x1="305" y1="105" x2="410" y2="168" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+    <line x1="410" y1="105" x2="305" y2="168" stroke="#1a3a5c" stroke-width="0.4" opacity="0.15"/>
+
+    <!-- ============================================================ -->
+    <!-- MAIN PIPE RUN 1 (teal — process line, upper tier)             -->
+    <!-- ============================================================ -->
+
+    <!-- Horizontal main run -->
+    <line x1="15" y1="90" x2="460" y2="90" stroke="#00a99d" stroke-width="3.5"/>
+    <!-- Pipe outline effect -->
+    <line x1="15" y1="88" x2="460" y2="88" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <line x1="15" y1="92" x2="460" y2="92" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Flange at start -->
+    <rect x="12" y="84" width="6" height="12" rx="0.5" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.05)"/>
+    <circle cx="15" cy="87" r="1" fill="#1a3a5c" opacity="0.3"/>
+    <circle cx="15" cy="93" r="1" fill="#1a3a5c" opacity="0.3"/>
+
+    <!-- Flange at end -->
+    <rect x="457" y="84" width="6" height="12" rx="0.5" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.05)"/>
+    <circle cx="460" cy="87" r="1" fill="#1a3a5c" opacity="0.3"/>
+    <circle cx="460" cy="93" r="1" fill="#1a3a5c" opacity="0.3"/>
+
+    <!-- Gate valve on main line (between col 1 and 2) -->
+    <!-- Bowtie body -->
+    <polygon points="110,83 122,90 110,97" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(0,169,157,.08)"/>
+    <polygon points="134,83 122,90 134,97" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(0,169,157,.08)"/>
+    <!-- Stem -->
+    <line x1="122" y1="83" x2="122" y2="65" stroke="#1a3a5c" stroke-width="1"/>
+    <!-- Handwheel -->
+    <circle cx="122" cy="62" r="6" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+    <line x1="116" y1="62" x2="128" y2="62" stroke="#1a3a5c" stroke-width="0.5"/>
+    <line x1="122" y1="56" x2="122" y2="68" stroke="#1a3a5c" stroke-width="0.5"/>
+    <!-- Flanges on valve -->
+    <rect x="107" y="85" width="4" height="10" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.04)"/>
+    <rect x="133" y="85" width="4" height="10" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.04)"/>
+
+    <!-- Tee fitting — branch down to lower tier -->
+    <circle cx="240" cy="90" r="4" stroke="#00a99d" stroke-width="0.8" fill="rgba(0,169,157,.06)"/>
+    <line x1="240" y1="94" x2="240" y2="160" stroke="#00a99d" stroke-width="3.5"/>
+    <line x1="238" y1="94" x2="238" y2="160" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <line x1="242" y1="94" x2="242" y2="160" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Elbow at bottom of drop (turns right) -->
+    <path d="M240 158 Q240 165 247 165" stroke="#00a99d" stroke-width="3.5" fill="none"/>
+
+    <!-- Horizontal continuation on lower tier -->
+    <line x1="245" y1="163" x2="390" y2="163" stroke="#00a99d" stroke-width="3.5"/>
+    <line x1="245" y1="161" x2="390" y2="161" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <line x1="245" y1="165" x2="390" y2="165" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Control valve on lower tier -->
+    <polygon points="330,157 340,163 330,169" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(0,169,157,.08)"/>
+    <polygon points="350,157 340,163 350,169" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(0,169,157,.08)"/>
+    <line x1="340" y1="157" x2="340" y2="145" stroke="#1a3a5c" stroke-width="0.8"/>
+    <circle cx="340" cy="142" r="4" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+    <!-- Actuator on control valve -->
+    <rect x="335" y="130" width="10" height="10" rx="1" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.03)"/>
+    <line x1="340" y1="140" x2="340" y2="142" stroke="#1a3a5c" stroke-width="0.5"/>
+
+    <!-- Flange at end of lower run -->
+    <rect x="388" y="157" width="5" height="12" rx="0.3" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.04)"/>
+
+    <!-- Elbow turning down -->
+    <path d="M392 163 Q398 163 398 170" stroke="#00a99d" stroke-width="3.5" fill="none"/>
+    <!-- Vertical drop down -->
+    <line x1="398" y1="168" x2="398" y2="240" stroke="#00a99d" stroke-width="3.5"/>
+    <line x1="396" y1="168" x2="396" y2="240" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <line x1="400" y1="168" x2="400" y2="240" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Flange at bottom -->
+    <rect x="392" y="238" width="12" height="5" rx="0.3" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.04)"/>
+
+    <!-- ============================================================ -->
+    <!-- PIPE RUN 2 (navy — secondary line, upper tier)                -->
+    <!-- ============================================================ -->
+
+    <line x1="40" y1="80" x2="380" y2="80" stroke="#1a3a5c" stroke-width="2.5"/>
+    <line x1="40" y1="78.5" x2="380" y2="78.5" stroke="#1a3a5c" stroke-width="0.4" opacity="0.2"/>
+    <line x1="40" y1="81.5" x2="380" y2="81.5" stroke="#1a3a5c" stroke-width="0.4" opacity="0.2"/>
+
+    <!-- Flange at start -->
+    <rect x="37" y="75" width="5" height="10" rx="0.3" stroke="#1a3a5c" stroke-width="0.6" fill="rgba(26,58,92,.04)"/>
+
+    <!-- Gate valve on navy line -->
+    <polygon points="220,74 228,80 220,86" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.06)"/>
+    <polygon points="236,74 228,80 236,86" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.06)"/>
+    <line x1="228" y1="74" x2="228" y2="58" stroke="#1a3a5c" stroke-width="0.8"/>
+    <circle cx="228" cy="55" r="5" stroke="#1a3a5c" stroke-width="0.7" fill="none"/>
+    <line x1="223" y1="55" x2="233" y2="55" stroke="#1a3a5c" stroke-width="0.4"/>
+    <rect x="217" y="75.5" width="4" height="9" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+    <rect x="235" y="75.5" width="4" height="9" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+
+    <!-- Elbow down at end -->
+    <path d="M378 80 Q385 80 385 87" stroke="#1a3a5c" stroke-width="2.5" fill="none"/>
+    <line x1="385" y1="85" x2="385" y2="130" stroke="#1a3a5c" stroke-width="2.5"/>
+
+    <!-- Flange at bottom of drop -->
+    <rect x="380" y="128" width="10" height="4" rx="0.3" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.03)"/>
+
+    <!-- ============================================================ -->
+    <!-- PIPE RUN 3 (lighter teal — utility/small bore, lower)         -->
+    <!-- ============================================================ -->
+
+    <line x1="70" y1="163" x2="230" y2="163" stroke="#00a99d" stroke-width="1.8" opacity="0.5"/>
+    <!-- Small valve -->
+    <polygon points="140,159 146,163 140,167" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.06)" opacity="0.6"/>
+    <polygon points="152,159 146,163 152,167" stroke="#00a99d" stroke-width="0.5" fill="rgba(0,169,157,.06)" opacity="0.6"/>
+    <line x1="146" y1="159" x2="146" y2="152" stroke="#00a99d" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="146" cy="150" r="3" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+
+    <!-- Branch up from utility line -->
+    <line x1="100" y1="163" x2="100" y2="94" stroke="#00a99d" stroke-width="1.8" opacity="0.5"/>
+    <!-- Small elbow -->
+    <path d="M100 96 Q100 90 106 90" stroke="#00a99d" stroke-width="1.8" fill="none" opacity="0.5"/>
+
+    <!-- ============================================================ -->
+    <!-- PIPE SUPPORTS / SHOES on rack                                 -->
+    <!-- ============================================================ -->
+
+    <!-- U-bolt style supports on upper tier -->
+    <!-- Support on column 1 for main line -->
+    <path d="M58 86 Q55 90 58 94" stroke="#1a3a5c" stroke-width="0.6" fill="none" opacity="0.4"/>
+    <line x1="58" y1="86" x2="67" y2="86" stroke="#1a3a5c" stroke-width="0.4" opacity="0.4"/>
+    <line x1="58" y1="94" x2="67" y2="94" stroke="#1a3a5c" stroke-width="0.4" opacity="0.4"/>
+
+    <!-- Shoe/guide supports -->
+    <rect x="155" y="93" width="12" height="3" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+    <line x1="158" y1="96" x2="158" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+    <line x1="164" y1="96" x2="164" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <rect x="275" y="93" width="12" height="3" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+    <line x1="278" y1="96" x2="278" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+    <line x1="284" y1="96" x2="284" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <rect x="355" y="93" width="12" height="3" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+    <line x1="358" y1="96" x2="358" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+    <line x1="364" y1="96" x2="364" y2="100" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- Lower tier supports -->
+    <rect x="265" y="166" width="12" height="3" rx="0.3" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.03)"/>
+    <line x1="268" y1="169" x2="268" y2="173" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+    <line x1="274" y1="169" x2="274" y2="173" stroke="#1a3a5c" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- ============================================================ -->
+    <!-- INSTRUMENT CONNECTIONS                                        -->
+    <!-- ============================================================ -->
+
+    <!-- Pressure gauge on main line -->
+    <line x1="195" y1="90" x2="195" y2="75" stroke="#1a3a5c" stroke-width="0.5"/>
+    <circle cx="195" cy="72" r="4" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+    <line x1="195" y1="72" x2="197" y2="70" stroke="#1a3a5c" stroke-width="0.4"/>
+
+    <!-- Temperature well on main line -->
+    <line x1="365" y1="90" x2="365" y2="78" stroke="#1a3a5c" stroke-width="0.5"/>
+    <rect x="362" y="74" width="6" height="5" rx="1" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- Flow indicator on lower run -->
+    <line x1="290" y1="163" x2="290" y2="150" stroke="#1a3a5c" stroke-width="0.5"/>
+    <circle cx="290" cy="147" r="4" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+
+    <!-- ============================================================ -->
+    <!-- REDUCER (on main line) -->
+    <!-- ============================================================ -->
+    <path d="M80 86 L88 88.5 L88 91.5 L80 94" stroke="#00a99d" stroke-width="0.7" fill="rgba(0,169,157,.04)"/>
+
+    <!-- ============================================================ -->
+    <!-- SPECTACLE BLIND (between flanges) -->
+    <!-- ============================================================ -->
+    <rect x="440" y="85" width="3" height="10" rx="0.3" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.06)"/>
+    <circle cx="441.5" cy="82" r="3" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+
+    <!-- ============================================================ -->
+    <!-- DIMENSION / ANNOTATION LINES (no text, just lines)            -->
+    <!-- ============================================================ -->
+
+    <!-- Horizontal dim line -->
+    <line x1="60" y1="295" x2="415" y2="295" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="60" y1="293" x2="60" y2="297" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="182.5" y1="293" x2="182.5" y2="297" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="302.5" y1="293" x2="302.5" y2="297" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="415" y1="293" x2="415" y2="297" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <!-- Arrow tips -->
+    <polygon points="62,295 60,293.5 60,296.5" fill="#1a3a5c" opacity="0.25"/>
+    <polygon points="413,295 415,293.5 415,296.5" fill="#1a3a5c" opacity="0.25"/>
+
+    <!-- Vertical dim line (height) -->
+    <line x1="25" y1="80" x2="25" y2="278" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="23" y1="80" x2="27" y2="80" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <line x1="23" y1="278" x2="27" y2="278" stroke="#1a3a5c" stroke-width="0.35" opacity="0.3"/>
+    <polygon points="25,82 23.5,80 26.5,80" fill="#1a3a5c" opacity="0.25"/>
+    <polygon points="25,276 23.5,278 26.5,278" fill="#1a3a5c" opacity="0.25"/>
+
+    <!-- Elevation lines between tiers -->
+    <line x1="440" y1="90" x2="470" y2="90" stroke="#1a3a5c" stroke-width="0.3" stroke-dasharray="2 2" opacity="0.2"/>
+    <line x1="440" y1="163" x2="470" y2="163" stroke="#1a3a5c" stroke-width="0.3" stroke-dasharray="2 2" opacity="0.2"/>
+    <line x1="468" y1="90" x2="468" y2="163" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+    <line x1="466" y1="90" x2="470" y2="90" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+    <line x1="466" y1="163" x2="470" y2="163" stroke="#1a3a5c" stroke-width="0.3" opacity="0.25"/>
+
+    <!-- ============================================================ -->
+    <!-- GROUND/FLOOR LINE -->
+    <!-- ============================================================ -->
+    <line x1="10" y1="282" x2="470" y2="282" stroke="#1a3a5c" stroke-width="0.8" opacity="0.3"/>
+    <!-- Ground hatching -->
+    <line x1="15" y1="282" x2="10" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="30" y1="282" x2="25" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="45" y1="282" x2="40" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="60" y1="282" x2="55" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="75" y1="282" x2="70" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="90" y1="282" x2="85" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="105" y1="282" x2="100" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="120" y1="282" x2="115" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="135" y1="282" x2="130" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="150" y1="282" x2="145" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="165" y1="282" x2="160" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="180" y1="282" x2="175" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="195" y1="282" x2="190" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="210" y1="282" x2="205" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="225" y1="282" x2="220" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="240" y1="282" x2="235" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="255" y1="282" x2="250" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="270" y1="282" x2="265" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="285" y1="282" x2="280" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="300" y1="282" x2="295" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="315" y1="282" x2="310" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="330" y1="282" x2="325" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="345" y1="282" x2="340" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="360" y1="282" x2="355" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="375" y1="282" x2="370" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="390" y1="282" x2="385" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="405" y1="282" x2="400" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="420" y1="282" x2="415" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="435" y1="282" x2="430" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="450" y1="282" x2="445" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+    <line x1="465" y1="282" x2="460" y2="288" stroke="#1a3a5c" stroke-width="0.3" opacity="0.12"/>
+
+    <!-- ============================================================ -->
+    <!-- ADDITIONAL FITTINGS                                           -->
+    <!-- ============================================================ -->
+
+    <!-- Elbow on utility line going up to main -->
+    <path d="M70 163 Q63 163 63 156" stroke="#00a99d" stroke-width="1.8" fill="none" opacity="0.5"/>
+    <line x1="63" y1="158" x2="63" y2="100" stroke="#00a99d" stroke-width="1.8" opacity="0.5"/>
+
+    <!-- Small branch off navy line going down -->
+    <line x1="160" y1="80" x2="160" y2="100" stroke="#1a3a5c" stroke-width="1.5"/>
+    <!-- Small globe valve on branch -->
+    <circle cx="160" cy="93" r="3.5" stroke="#1a3a5c" stroke-width="0.6" fill="none"/>
+    <line x1="157" y1="93" x2="163" y2="93" stroke="#1a3a5c" stroke-width="0.4"/>
+
+    <!-- Expansion loop on main line (above between col 2 and 3) -->
+    <path d="M250 90 L250 45 L275 45 L275 90" stroke="#00a99d" stroke-width="3.5" fill="none"/>
+    <path d="M248 90 L248 43 L248 45" stroke="#00a99d" stroke-width="0.5" fill="none" opacity="0.3"/>
+    <path d="M252 90 L252 47 L252 45" stroke="#00a99d" stroke-width="0.5" fill="none" opacity="0.3"/>
+    <line x1="248" y1="45" x2="277" y2="45" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <line x1="248" y1="43" x2="277" y2="43" stroke="#00a99d" stroke-width="0.5" opacity="0.3"/>
+    <path d="M273 90 L273 43" stroke="#00a99d" stroke-width="0.5" fill="none" opacity="0.3"/>
+    <path d="M277 90 L277 47" stroke="#00a99d" stroke-width="0.5" fill="none" opacity="0.3"/>
+
+    <!-- North arrow -->
+    <polygon points="450,310 454,325 446,325" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.08)"/>
+    <polygon points="450,310 450,325 446,325" fill="rgba(26,58,92,.15)"/>
+
+  </svg>
+      </div>
+    </div>
+
+    <!-- 5. Equipment Selection -->
+    <div class="service-detail">
+      <div class="service-detail-text">
+        <h3>Equipment Selection</h3>
+        <p>We help you identify and specify the right equipment for your process backed by technical evaluation, vendor comparison, and lifecycle cost analysis. Our selections are driven by performance data, not guesswork.</p>
+        <ul>
+          <li>Pumps, compressors, and blowers</li>
+          <li>Heat exchangers and cooling systems</li>
+          <li>Pressure vessels and storage tanks</li>
+          <li>Vendor bid evaluation and comparison</li>
+          <li>Technical data sheet preparation</li>
+        </ul>
+      </div>
+      <div class="service-detail-visual">
+        <svg viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- ============================================================ -->
+    <!-- FIXED END FRAME (left thick plate)                            -->
+    <!-- ============================================================ -->
+    <rect x="42" y="55" width="18" height="195" rx="3" stroke="#1a3a5c" stroke-width="1.8" fill="rgba(26,58,92,.06)"/>
+    <!-- Top port (nozzle) — warm in -->
+    <rect x="46" y="42" width="10" height="16" rx="1.5" stroke="#00a99d" stroke-width="1.2" fill="rgba(0,169,157,.06)"/>
+    <ellipse cx="51" cy="42" rx="5" ry="2.5" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+    <!-- Flange ring on top nozzle -->
+    <rect x="43" y="36" width="16" height="4" rx="1" stroke="#00a99d" stroke-width="0.7" fill="rgba(0,169,157,.04)"/>
+    <circle cx="46" cy="38" r="0.8" fill="#00a99d" opacity="0.3"/>
+    <circle cx="56" cy="38" r="0.8" fill="#00a99d" opacity="0.3"/>
+
+    <!-- Bottom port (nozzle) — cold out -->
+    <rect x="46" y="247" width="10" height="16" rx="1.5" stroke="#1a3a5c" stroke-width="1.2" fill="rgba(26,58,92,.05)"/>
+    <ellipse cx="51" cy="263" rx="5" ry="2.5" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+    <rect x="43" y="264" width="16" height="4" rx="1" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.03)"/>
+    <circle cx="46" cy="266" r="0.8" fill="#1a3a5c" opacity="0.3"/>
+    <circle cx="56" cy="266" r="0.8" fill="#1a3a5c" opacity="0.3"/>
+
+    <!-- Port holes in fixed frame -->
+    <circle cx="51" cy="80" r="6" stroke="#00a99d" stroke-width="0.8" fill="rgba(0,169,157,.04)"/>
+    <circle cx="51" cy="225" r="6" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+
+    <!-- Bolts on fixed frame face -->
+    <circle cx="45" cy="100" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="57" cy="100" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="45" cy="205" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="57" cy="205" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+
+    <!-- ============================================================ -->
+    <!-- CARRYING BAR (top horizontal rod)                             -->
+    <!-- ============================================================ -->
+    <line x1="55" y1="52" x2="445" y2="52" stroke="#1a3a5c" stroke-width="2.5"/>
+    <line x1="55" y1="50.5" x2="445" y2="50.5" stroke="#1a3a5c" stroke-width="0.4" opacity="0.2"/>
+    <line x1="55" y1="53.5" x2="445" y2="53.5" stroke="#1a3a5c" stroke-width="0.4" opacity="0.2"/>
+
+    <!-- GUIDE BAR (bottom horizontal rod) -->
+    <line x1="55" y1="253" x2="445" y2="253" stroke="#1a3a5c" stroke-width="2"/>
+    <line x1="55" y1="251.5" x2="445" y2="251.5" stroke="#1a3a5c" stroke-width="0.3" opacity="0.2"/>
+    <line x1="55" y1="254.5" x2="445" y2="254.5" stroke="#1a3a5c" stroke-width="0.3" opacity="0.2"/>
+
+    <!-- ============================================================ -->
+    <!-- SUPPORT COLUMN (left side, floor mount)                       -->
+    <!-- ============================================================ -->
+    <rect x="35" y="250" width="32" height="8" rx="1" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+    <rect x="44" y="258" width="14" height="40" rx="1" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+    <!-- Base plate -->
+    <rect x="32" y="296" width="38" height="5" rx="0.5" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.04)"/>
+    <!-- Anchor bolts -->
+    <circle cx="38" cy="298.5" r="1.2" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+    <circle cx="64" cy="298.5" r="1.2" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+
+    <!-- ============================================================ -->
+    <!-- PLATES (exploded — spaced apart, alternating teal/navy)       -->
+    <!-- Each plate is a rounded rectangle with herringbone pattern    -->
+    <!-- ============================================================ -->
+
+    <!-- Plate 1 (teal) -->
+    <rect x="80" y="62" width="8" height="180" rx="2" stroke="#00a99d" stroke-width="1" fill="rgba(0,169,157,.08)"/>
+    <!-- Herringbone chevrons -->
+    <path d="M82 80 L84 75 L86 80" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 95 L84 90 L86 95" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 110 L84 105 L86 110" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 125 L84 120 L86 125" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 140 L84 135 L86 140" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 155 L84 150 L86 155" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 170 L84 165 L86 170" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 185 L84 180 L86 185" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 200 L84 195 L86 200" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 215 L84 210 L86 215" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M82 230 L84 225 L86 230" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <!-- Port holes -->
+    <circle cx="84" cy="72" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <circle cx="84" cy="232" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 1 (thin darker line) -->
+    <rect x="93" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 2 (navy) -->
+    <rect x="102" y="62" width="8" height="180" rx="2" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.07)"/>
+    <path d="M104 80 L106 85 L108 80" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 95 L106 100 L108 95" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 110 L106 115 L108 110" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 125 L106 130 L108 125" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 140 L106 145 L108 140" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 155 L106 160 L108 155" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 170 L106 175 L108 170" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 185 L106 190 L108 185" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 200 L106 205 L108 200" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 215 L106 220 L108 215" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M104 230 L106 235 L108 230" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <circle cx="106" cy="72" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <circle cx="106" cy="232" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 2 -->
+    <rect x="115" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 3 (teal) -->
+    <rect x="124" y="62" width="8" height="180" rx="2" stroke="#00a99d" stroke-width="1" fill="rgba(0,169,157,.08)"/>
+    <path d="M126 80 L128 75 L130 80" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 95 L128 90 L130 95" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 110 L128 105 L130 110" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 125 L128 120 L130 125" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 140 L128 135 L130 140" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 155 L128 150 L130 155" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 170 L128 165 L130 170" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 185 L128 180 L130 185" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 200 L128 195 L130 200" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 215 L128 210 L130 215" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M126 230 L128 225 L130 230" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <circle cx="128" cy="72" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <circle cx="128" cy="232" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 3 -->
+    <rect x="137" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 4 (navy) -->
+    <rect x="146" y="62" width="8" height="180" rx="2" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.07)"/>
+    <path d="M148 80 L150 85 L152 80" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 95 L150 100 L152 95" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 110 L150 115 L152 110" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 125 L150 130 L152 125" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 140 L150 145 L152 140" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 155 L150 160 L152 155" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 170 L150 175 L152 170" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 185 L150 190 L152 185" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 200 L150 205 L152 200" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 215 L150 220 L152 215" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M148 230 L150 235 L152 230" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <circle cx="150" cy="72" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <circle cx="150" cy="232" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 4 -->
+    <rect x="159" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 5 (teal) -->
+    <rect x="168" y="62" width="8" height="180" rx="2" stroke="#00a99d" stroke-width="1" fill="rgba(0,169,157,.08)"/>
+    <path d="M170 80 L172 75 L174 80" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M170 110 L172 105 L174 110" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M170 140 L172 135 L174 140" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M170 170 L172 165 L174 170" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M170 200 L172 195 L174 200" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M170 230 L172 225 L174 230" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <circle cx="172" cy="72" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <circle cx="172" cy="232" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 5 -->
+    <rect x="181" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 6 (navy) -->
+    <rect x="190" y="62" width="8" height="180" rx="2" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.07)"/>
+    <path d="M192 80 L194 85 L196 80" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M192 110 L194 115 L196 110" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M192 140 L194 145 L196 140" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M192 170 L194 175 L196 170" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M192 200 L194 205 L196 200" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M192 230 L194 235 L196 230" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <circle cx="194" cy="72" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <circle cx="194" cy="232" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 6 -->
+    <rect x="203" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 7 (teal) -->
+    <rect x="212" y="62" width="8" height="180" rx="2" stroke="#00a99d" stroke-width="1" fill="rgba(0,169,157,.08)"/>
+    <path d="M214 80 L216 75 L218 80" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M214 110 L216 105 L218 110" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M214 140 L216 135 L218 140" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M214 170 L216 165 L218 170" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M214 200 L216 195 L218 200" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <path d="M214 230 L216 225 L218 230" stroke="#00a99d" stroke-width="0.4" fill="none" opacity="0.5"/>
+    <circle cx="216" cy="72" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+    <circle cx="216" cy="232" r="3" stroke="#00a99d" stroke-width="0.5" fill="none"/>
+
+    <!-- Gasket 7 -->
+    <rect x="225" y="64" width="2.5" height="176" rx="0.8" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.1)"/>
+
+    <!-- Plate 8 (navy) -->
+    <rect x="234" y="62" width="8" height="180" rx="2" stroke="#1a3a5c" stroke-width="1" fill="rgba(26,58,92,.07)"/>
+    <path d="M236 80 L238 85 L240 80" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M236 140 L238 145 L240 140" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <path d="M236 200 L238 205 L240 200" stroke="#1a3a5c" stroke-width="0.4" fill="none" opacity="0.4"/>
+    <circle cx="238" cy="72" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+    <circle cx="238" cy="232" r="3" stroke="#1a3a5c" stroke-width="0.5" fill="none"/>
+
+    <!-- ============================================================ -->
+    <!-- FLOW ARROWS (warm media — teal, weaving between plates)       -->
+    <!-- ============================================================ -->
+    <path d="M70 80 C75 80 78 90 82 100 C86 110 86 120 84 130 C82 140 82 150 86 160 C90 170 88 180 84 190 C80 200 82 210 86 220 C88 225 86 230 84 232"
+          stroke="#00a99d" stroke-width="1.5" fill="none" stroke-dasharray="4 2" opacity="0.4"/>
+    <!-- Arrow tip -->
+    <polygon points="82,230 86,235 80,235" fill="#00a99d" opacity="0.35"/>
+
+    <!-- FLOW ARROWS (cold media — navy, weaving opposite) -->
+    <path d="M70 225 C74 225 76 215 80 205 C84 195 84 185 80 175 C76 165 76 155 80 145 C84 135 84 125 80 115 C76 105 78 95 80 85 C82 80 80 75 80 72"
+          stroke="#1a3a5c" stroke-width="1.5" fill="none" stroke-dasharray="4 2" opacity="0.3"/>
+    <polygon points="78,74 82,69 76,69" fill="#1a3a5c" opacity="0.25"/>
+
+    <!-- ============================================================ -->
+    <!-- TIGHTENING BOLTS (4 long tie rods)                            -->
+    <!-- ============================================================ -->
+
+    <!-- Top bolt rod -->
+    <line x1="60" y1="75" x2="440" y2="75" stroke="#1a3a5c" stroke-width="0.8" stroke-dasharray="6 8" opacity="0.15"/>
+    <!-- Nut at end -->
+    <rect x="436" y="72" width="6" height="6" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.05)"/>
+
+    <!-- Upper-mid bolt rod -->
+    <line x1="60" y1="120" x2="440" y2="120" stroke="#1a3a5c" stroke-width="0.8" stroke-dasharray="6 8" opacity="0.15"/>
+    <rect x="436" y="117" width="6" height="6" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.05)"/>
+
+    <!-- Lower-mid bolt rod -->
+    <line x1="60" y1="185" x2="440" y2="185" stroke="#1a3a5c" stroke-width="0.8" stroke-dasharray="6 8" opacity="0.15"/>
+    <rect x="436" y="182" width="6" height="6" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.05)"/>
+
+    <!-- Bottom bolt rod -->
+    <line x1="60" y1="230" x2="440" y2="230" stroke="#1a3a5c" stroke-width="0.8" stroke-dasharray="6 8" opacity="0.15"/>
+    <rect x="436" y="227" width="6" height="6" rx="0.5" stroke="#1a3a5c" stroke-width="0.5" fill="rgba(26,58,92,.05)"/>
+
+    <!-- ============================================================ -->
+    <!-- MOVABLE END FRAME (right thick plate)                         -->
+    <!-- ============================================================ -->
+    <rect x="420" y="55" width="18" height="195" rx="3" stroke="#1a3a5c" stroke-width="1.8" fill="rgba(26,58,92,.06)"/>
+
+    <!-- Top port — cold in -->
+    <rect x="424" y="42" width="10" height="16" rx="1.5" stroke="#1a3a5c" stroke-width="1.2" fill="rgba(26,58,92,.05)"/>
+    <ellipse cx="429" cy="42" rx="5" ry="2.5" stroke="#1a3a5c" stroke-width="0.8" fill="none"/>
+    <rect x="421" y="36" width="16" height="4" rx="1" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.03)"/>
+    <circle cx="424" cy="38" r="0.8" fill="#1a3a5c" opacity="0.3"/>
+    <circle cx="434" cy="38" r="0.8" fill="#1a3a5c" opacity="0.3"/>
+
+    <!-- Bottom port — warm out -->
+    <rect x="424" y="247" width="10" height="16" rx="1.5" stroke="#00a99d" stroke-width="1.2" fill="rgba(0,169,157,.06)"/>
+    <ellipse cx="429" cy="263" rx="5" ry="2.5" stroke="#00a99d" stroke-width="0.8" fill="none"/>
+    <rect x="421" y="264" width="16" height="4" rx="1" stroke="#00a99d" stroke-width="0.7" fill="rgba(0,169,157,.04)"/>
+    <circle cx="424" cy="266" r="0.8" fill="#00a99d" opacity="0.3"/>
+    <circle cx="434" cy="266" r="0.8" fill="#00a99d" opacity="0.3"/>
+
+    <!-- Port holes in movable frame -->
+    <circle cx="429" cy="80" r="6" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+    <circle cx="429" cy="225" r="6" stroke="#00a99d" stroke-width="0.8" fill="rgba(0,169,157,.04)"/>
+
+    <!-- Bolts on movable frame -->
+    <circle cx="423" cy="100" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="435" cy="100" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="423" cy="205" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+    <circle cx="435" cy="205" r="1.5" stroke="#1a3a5c" stroke-width="0.4" fill="rgba(26,58,92,.06)"/>
+
+    <!-- ============================================================ -->
+    <!-- SUPPORT COLUMN (right side)                                   -->
+    <!-- ============================================================ -->
+    <rect x="413" y="250" width="32" height="8" rx="1" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+    <rect x="422" y="258" width="14" height="40" rx="1" stroke="#1a3a5c" stroke-width="0.8" fill="rgba(26,58,92,.03)"/>
+    <rect x="410" y="296" width="38" height="5" rx="0.5" stroke="#1a3a5c" stroke-width="0.7" fill="rgba(26,58,92,.04)"/>
+    <circle cx="416" cy="298.5" r="1.2" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+    <circle cx="442" cy="298.5" r="1.2" stroke="#1a3a5c" stroke-width="0.4" fill="none"/>
+
+    <!-- ============================================================ -->
+    <!-- EXPLODED SPACING INDICATORS (dashed lines showing expansion)  -->
+    <!-- ============================================================ -->
+    <!-- Between fixed frame and plate 1 -->
+    <line x1="63" y1="152" x2="78" y2="152" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <polygon points="77,150.5 80,152 77,153.5" fill="#00a99d" opacity="0.3"/>
+    <polygon points="64,150.5 61,152 64,153.5" fill="#00a99d" opacity="0.3"/>
+
+    <!-- Between last plate and movable frame -->
+    <line x1="244" y1="152" x2="418" y2="152" stroke="#00a99d" stroke-width="0.4" stroke-dasharray="2 1.5" opacity="0.35"/>
+    <polygon points="417,150.5 420,152 417,153.5" fill="#00a99d" opacity="0.3"/>
+    <polygon points="245,150.5 242,152 245,153.5" fill="#00a99d" opacity="0.3"/>
+
+    <!-- ============================================================ -->
+    <!-- GROUND LINE -->
+    <!-- ============================================================ -->
+    <line x1="20" y1="301" x2="460" y2="301" stroke="#1a3a5c" stroke-width="0.6" opacity="0.2"/>
+
+  </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Need a Custom Solution?</h2>
+    <p>Every project is unique. Contact us to discuss your specific requirements and how we can help.</p>
+    <a href="contact.html" class="btn btn-primary">Request a Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <!-- Toronto Skyline Silhouette -->
+  <div class="skyline-backdrop">
+    <svg viewBox="0 0 1600 260" preserveAspectRatio="xMidYMid slice" style="height: 240px;" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="145" width="18" height="115" fill="#0b1a2b"/>
+      <rect x="55" y="105" width="22" height="155" fill="#0a1828"/>
+      <rect x="84" y="140" width="25" height="120" fill="#0b1a2b"/>
+      <rect x="116" y="115" width="20" height="145" fill="#0a1828"/>
+      <rect x="143" y="155" width="28" height="105" fill="#0b1a2b"/>
+      <rect x="178" y="125" width="22" height="135" fill="#0a1828"/>
+      <rect x="207" y="150" width="18" height="110" fill="#0b1a2b"/>
+      <path d="M240 260 L240 240 Q240 195 310 172 Q380 155 450 155 Q520 172 590 195 Q590 240 590 260 Z" fill="#0a1828"/>
+      <path d="M260 260 L260 235 Q260 200 380 178 Q500 200 570 235 L570 260 Z" fill="#091624"/>
+      <rect x="600" y="190" width="20" height="70" fill="#0b1a2b"/>
+      <rect x="625" y="175" width="16" height="85" fill="#0a1828"/>
+      <polygon points="645,260 655,260 658,195 670,195 672,260 682,260 675,195 660,195" fill="#0a1828"/>
+      <polygon points="658,195 660,12 667,12 670,195" fill="#0a1828"/>
+      <rect x="662" y="0" width="3" height="12" fill="#0a1828"/>
+      <ellipse cx="664" cy="140" rx="38" ry="11" fill="#0a1828"/>
+      <rect x="626" y="140" width="76" height="12" rx="2" fill="#0a1828"/>
+      <ellipse cx="664" cy="152" rx="38" ry="10" fill="#091624"/>
+      <ellipse cx="663" cy="100" rx="24" ry="7" fill="#0a1828"/>
+      <rect x="639" y="100" width="48" height="8" rx="1" fill="#0a1828"/>
+      <ellipse cx="663" cy="108" rx="24" ry="7" fill="#091624"/>
+      <rect x="710" y="88" width="34" height="172" fill="#0a1828"/>
+      <rect x="750" y="115" width="28" height="145" fill="#0b1a2b"/>
+      <rect x="785" y="58" width="38" height="202" fill="#0a1828"/>
+      <rect x="802" y="38" width="4" height="20" fill="#0a1828"/>
+      <polygon points="785,58 790,50 830,50 823,58" fill="#0a1828"/>
+      <rect x="830" y="75" width="32" height="185" fill="#0b1a2b"/>
+      <polygon points="830,75 846,55 862,75" fill="#0b1a2b"/>
+      <rect x="870" y="108" width="28" height="152" fill="#0a1828"/>
+      <polygon points="870,108 873,98 895,98 898,108" fill="#0a1828"/>
+      <rect x="905" y="90" width="26" height="170" fill="#0b1a2b"/>
+      <rect x="936" y="105" width="24" height="155" fill="#0a1828"/>
+      <rect x="968" y="82" width="28" height="178" fill="#0b1a2b"/>
+      <rect x="1002" y="110" width="24" height="150" fill="#0a1828"/>
+      <rect x="1032" y="95" width="22" height="165" fill="#0b1a2b"/>
+      <rect x="1062" y="120" width="24" height="140" fill="#0a1828"/>
+      <ellipse cx="1074" cy="120" rx="12" ry="5" fill="#0a1828"/>
+      <rect x="1094" y="150" width="26" height="110" fill="#0b1a2b"/>
+      <rect x="1128" y="130" width="22" height="130" fill="#0a1828"/>
+      <rect x="1158" y="155" width="20" height="105" fill="#0b1a2b"/>
+      <rect x="1186" y="145" width="20" height="115" fill="#0b1a2b"/>
+      <rect x="1213" y="165" width="18" height="95" fill="#0b1a2b"/>
+      <rect x="1238" y="155" width="22" height="105" fill="#0b1a2b"/>
+      <rect x="1268" y="175" width="16" height="85" fill="#0b1a2b"/>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <img src="images/logo.png" alt="VSSV Solutions Inc." style="height:40px; filter: brightness(0) invert(1);">
+        <p>Providing technical design, drafting, and consulting services to industrial and commercial clients across various sectors.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">3D Modeling</a></li>
+          <li><a href="services.html">AutoCAD Drafting</a></li>
+          <li><a href="services.html">Process Design</a></li>
+          <li><a href="services.html">Piping Design</a></li>
+          <li><a href="services.html">Equipment Selection</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>info@vssvsolutions.ca</li>
+          <li>(647) 870-6930</li>
+          <li>Ontario, Canada</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 VSSV Solutions Inc. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+                                          
