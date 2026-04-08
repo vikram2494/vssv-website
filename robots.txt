@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block access to any admin or private directories (add paths here if needed)
+Disallow: /cgi-bin/
+
+# Sitemap location
+Sitemap: https://vssvsolutions.ca/sitemap.xml
