@@ -343,6 +343,11 @@ ul { list-style: none; }
 .email-link:hover {
   color: #00a99d;
 }
+
+/* Social icons */
+.footer-socials a:hover svg {
+  fill: #00a99d;
+}
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.1);
   margin-top: 40px;
